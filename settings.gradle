@@ -1,0 +1,5 @@
+rootProject.name = 'open_audio_books_api'
+include 'core'
+include 'api'
+include 'infra'
+

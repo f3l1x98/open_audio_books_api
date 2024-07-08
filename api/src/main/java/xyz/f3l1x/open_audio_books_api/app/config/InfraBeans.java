@@ -1,0 +1,37 @@
+package xyz.f3l1x.open_audio_books_api.app.config;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import xyz.f3l1x.core.audio_book.IAudioBookRepository;
+import xyz.f3l1x.core.episode.IEpisodeRepository;
+import xyz.f3l1x.core.genre.IGenreRepository;
+import xyz.f3l1x.infra.audio_book.IJpaAudioBookRepository;
+import xyz.f3l1x.infra.audio_book.JpaAudioBookRepository;
+import xyz.f3l1x.infra.episode.IJpaEpisodeRepository;
+import xyz.f3l1x.infra.episode.JpaEpisodeRepository;
+import xyz.f3l1x.infra.genre.IJpaGenreRepository;
+import xyz.f3l1x.infra.genre.JpaGenreRepository;
+
+@Configuration()
+@EnableJpaRepositories(basePackages = "xyz.f3l1x.infra")
+@EntityScan(basePackages = "xyz.f3l1x.infra")
+class InfraBeans {
+
+    @Bean
+    public IAudioBookRepository audioBookRepository(ModelMapper modelMapper, IJpaAudioBookRepository jpaAudioBookRepository) {
+        return new JpaAudioBookRepository(modelMapper, jpaAudioBookRepository);
+    }
+
+    @Bean
+    public IEpisodeRepository episodeRepository(ModelMapper modelMapper, IJpaEpisodeRepository jpaEpisodeRepository) {
+        return new JpaEpisodeRepository(modelMapper, jpaEpisodeRepository);
+    }
+
+    @Bean
+    public IGenreRepository genreRepository(ModelMapper modelMapper, IJpaGenreRepository jpaGenreRepository) {
+        return new JpaGenreRepository(modelMapper, jpaGenreRepository);
+    }
+}
