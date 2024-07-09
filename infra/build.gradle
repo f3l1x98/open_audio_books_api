@@ -32,15 +32,14 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation libs.spring.boot
+    implementation libs.spring.boot.starter.data.jpa
     implementation project(':core')
-    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
-    implementation 'org.modelmapper:modelmapper:3.2.0'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation libs.model.mapper
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
     runtimeOnly 'com.h2database:h2'
 }
 
