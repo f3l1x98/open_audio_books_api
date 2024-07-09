@@ -32,7 +32,6 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation libs.spring.boot
     implementation libs.spring.boot.starter.data.jpa
     implementation project(':core')
     implementation libs.model.mapper
