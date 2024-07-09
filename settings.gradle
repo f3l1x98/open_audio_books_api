@@ -7,6 +7,8 @@ dependencyResolutionManagement {
     versionCatalogs {
         libs {
             def springBoot = version('spring-boot', '3.3.1')
+            plugin('spring-boot', 'org.springframework.boot').versionRef(springBoot)
+            plugin('spring-dependency-management', 'io.spring.dependency-management').version('1.1.5')
             library('spring-boot', 'org.springframework.boot', 'spring-boot').versionRef(springBoot)
             library('spring-boot-starter', 'org.springframework.boot', 'spring-boot-starter').versionRef(springBoot)
             library('spring-boot-starter-data-jpa', 'org.springframework.boot', 'spring-boot-starter-data-jpa').versionRef(springBoot)
