@@ -5,7 +5,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import xyz.f3l1x.core.audio_book.AudioBook;
-import xyz.f3l1x.core.audio_book.AudioBookNotFoundException;
+import xyz.f3l1x.core.audio_book.exception.AudioBookNotFoundException;
 import xyz.f3l1x.core.audio_book.command.create.CreateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQuery;
@@ -76,7 +76,7 @@ public class AudioBookController {
 
     // TODO SLUG https://spring.io/guides/tutorials/spring-boot-kotlin
     @PostMapping("/{id}")
-    public ResponseEntity<AudioBookDto> createAudioBook(@PathVariable Long id) {
+    public ResponseEntity<AudioBookDto> updateAudioBook(@PathVariable Long id) {
         UpdateAudioBookCommand command = new UpdateAudioBookCommand(
                 id,
                 null,
