@@ -1,7 +1,7 @@
 package xyz.f3l1x.core.audio_book;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+import xyz.f3l1x.core.audio_book.exception.UniqueEpisodeViolationException;
 import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.genre.Genre;
 import xyz.f3l1x.core.shared.BaseModel;
@@ -26,15 +26,12 @@ public class AudioBook extends BaseModel {
         return new AudioBook(title, summary, releaseDate, ongoing, rating, new ArrayList<>(), new HashSet<>(genres));
     }
 
-
-    // TODO evaluate DDD: public void addEpisode() {}
-    public void addNewEpisode(Integer number, String title, String summary, Date releaseDate) {
+    public void addNewEpisode(Integer number, String title, String summary, Date releaseDate) throws UniqueEpisodeViolationException {
         boolean numberAlreadyInUse = episodes.stream().anyMatch(episode -> Objects.equals(episode.getNumber(), number));
         boolean titleAlreadyInUse = episodes.stream().anyMatch(episode -> Objects.equals(episode.getTitle(), title));
 
         if (numberAlreadyInUse || titleAlreadyInUse) {
-            // TODO exception (ALSO MAKE IT NON RUNTIME)
-            throw new RuntimeException("TODO");
+            throw new UniqueEpisodeViolationException(numberAlreadyInUse, titleAlreadyInUse);
         }
 
         Episode newEpisode = Episode.create(number, title, summary, releaseDate, this);
