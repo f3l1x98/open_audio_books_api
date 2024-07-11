@@ -39,7 +39,12 @@ public class AudioBookEntity {
     @Column(columnDefinition = "INTEGER NOT NULL default 0")
     private Integer rating;
 
-    @OneToMany(mappedBy = "audioBook",fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "audioBook",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<EpisodeEntity> episodes;
 
     @ManyToMany()
