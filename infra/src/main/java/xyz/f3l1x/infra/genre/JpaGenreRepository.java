@@ -25,8 +25,20 @@ public class JpaGenreRepository implements IGenreRepository {
     }
 
     @Override
+    public List<Genre> findAll() {
+        List<GenreEntity> entities = repository.findAll();
+        return mapper.map(entities, new TypeToken<List<Genre>>() {}.getType());
+    }
+
+    @Override
     public List<Genre> findAllByIdIn(List<Long> ids) {
         List<GenreEntity> entities = repository.findAllByIdIn(ids);
         return this.mapper.map(entities, new TypeToken<List<Genre>>() {}.getType());
+    }
+
+    @Override
+    public List<Genre> findAllForAudioBook(Long audioBookId) {
+        List<GenreEntity> entities = repository.findAllByAudioBooks_Id(audioBookId);
+        return mapper.map(entities, new TypeToken<List<Genre>>() {}.getType());
     }
 }
