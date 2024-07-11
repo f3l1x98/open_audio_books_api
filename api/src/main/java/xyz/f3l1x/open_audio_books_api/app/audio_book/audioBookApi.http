@@ -1,0 +1,30 @@
+### GET all audio books
+GET localhost:8080/api/v1/audio-book
+
+### POST create new audio book
+POST localhost:8080/api/v1/audio-book
+Content-Type: application/json
+
+{
+  "title": "Test",
+  "summary": "",
+  "releaseDate": "2019-10-11T09:21:04.981Z",
+  "ongoing": true,
+  "rating": 0,
+  "genreIds": []
+}
+
+### PUT update audio book
+PUT localhost:8080/api/v1/audio-book/1
+Content-Type: application/json
+
+{
+  "title": "Test",
+  "summary": "",
+  "releaseDate": "2019-10-11T09:21:04.981Z",
+  "ongoing": true,
+  "rating": 0,
+  "genreIds": []
+}
+
+###
