@@ -12,7 +12,10 @@ import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommandHandler;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQuery;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQueryHandler;
+import xyz.f3l1x.core.genre.Genre;
 import xyz.f3l1x.core.genre.IGenreRepository;
+import xyz.f3l1x.core.genre.query.find_all.FindAllGenreQuery;
+import xyz.f3l1x.core.genre.query.find_all.FindAllGenreQueryHandler;
 import xyz.f3l1x.core.shared.cqrs.ICommandHandler;
 import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.AudioBookDto;
@@ -35,7 +38,7 @@ public class CoreBeans {
     }
 
     @Bean
-    public IQueryHandler<FindAllAudioBookQuery, List<AudioBook>> audioBookQueryService(IAudioBookRepository audioBookRepository) {
+    public IQueryHandler<FindAllAudioBookQuery, List<AudioBook>> findAllAudioBookQueryHandler(IAudioBookRepository audioBookRepository) {
         return new FindAllAudioBookQueryHandler(audioBookRepository);
     }
 
@@ -47,5 +50,10 @@ public class CoreBeans {
     @Bean
     public ICommandHandler<UpdateAudioBookCommand, AudioBook> updateAudioBookCommandHandler(IAudioBookRepository audioBookRepository) {
         return new UpdateAudioBookCommandHandler(audioBookRepository);
+    }
+
+    @Bean
+    public IQueryHandler<FindAllGenreQuery, List<Genre>> findAllGenreQueryHandler(IGenreRepository genreRepository) {
+        return new FindAllGenreQueryHandler(genreRepository);
     }
 }
