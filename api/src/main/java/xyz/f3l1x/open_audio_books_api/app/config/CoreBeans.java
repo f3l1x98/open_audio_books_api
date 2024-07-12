@@ -24,6 +24,8 @@ import xyz.f3l1x.core.genre.Genre;
 import xyz.f3l1x.core.genre.IGenreRepository;
 import xyz.f3l1x.core.genre.command.create.CreateGenreCommand;
 import xyz.f3l1x.core.genre.command.create.CreateGenreCommandHandler;
+import xyz.f3l1x.core.genre.command.delete.DeleteGenreCommand;
+import xyz.f3l1x.core.genre.command.delete.DeleteGenreCommandHandler;
 import xyz.f3l1x.core.genre.query.find_all.FindAllGenreQuery;
 import xyz.f3l1x.core.genre.query.find_all.FindAllGenreQueryHandler;
 import xyz.f3l1x.core.shared.cqrs.ICommandHandler;
@@ -85,5 +87,10 @@ public class CoreBeans {
     @Bean
     public IQueryHandler<FindAllForAudioBookEpisodeQuery, List<Episode>> findAllForAudioBookEpisodeQueryHandler(IEpisodeRepository episodeRepository) {
         return new FindAllForAudioBookEpisodeQueryHandler(episodeRepository);
+    }
+
+    @Bean
+    public ICommandHandler<DeleteGenreCommand, Genre> deleteGenreCommandHandler(IGenreRepository genreRepository) {
+        return new DeleteGenreCommandHandler(genreRepository);
     }
 }
