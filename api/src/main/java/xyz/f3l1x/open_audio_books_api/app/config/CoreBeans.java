@@ -16,6 +16,10 @@ import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommandHandler;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQuery;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQueryHandler;
+import xyz.f3l1x.core.episode.Episode;
+import xyz.f3l1x.core.episode.IEpisodeRepository;
+import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQuery;
+import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQueryHandler;
 import xyz.f3l1x.core.genre.Genre;
 import xyz.f3l1x.core.genre.IGenreRepository;
 import xyz.f3l1x.core.genre.command.create.CreateGenreCommand;
@@ -76,5 +80,10 @@ public class CoreBeans {
     @Bean
     public ICommandHandler<RemoveGenreCommand, AudioBook> removeGenreCommandHandler(IAudioBookRepository audioBookRepository, IGenreRepository genreRepository) {
         return new RemoveGenreCommandHandler(genreRepository, audioBookRepository);
+    }
+
+    @Bean
+    public IQueryHandler<FindAllForAudioBookEpisodeQuery, List<Episode>> findAllForAudioBookEpisodeQueryHandler(IEpisodeRepository episodeRepository) {
+        return new FindAllForAudioBookEpisodeQueryHandler(episodeRepository);
     }
 }
