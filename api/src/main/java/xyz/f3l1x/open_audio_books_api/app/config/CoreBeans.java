@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import xyz.f3l1x.core.audio_book.AudioBook;
 import xyz.f3l1x.core.audio_book.IAudioBookRepository;
+import xyz.f3l1x.core.audio_book.command.add_genre.AddGenreCommand;
+import xyz.f3l1x.core.audio_book.command.add_genre.AddGenreCommandHandler;
 import xyz.f3l1x.core.audio_book.command.create.CreateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.create.CreateAudioBookCommandHandler;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
@@ -62,5 +64,10 @@ public class CoreBeans {
     @Bean
     public ICommandHandler<CreateGenreCommand, Genre> createGenreCommandHandler(IGenreRepository genreRepository) {
         return new CreateGenreCommandHandler(genreRepository);
+    }
+
+    @Bean
+    public ICommandHandler<AddGenreCommand, AudioBook> addGenreCommandHandler(IAudioBookRepository audioBookRepository, IGenreRepository genreRepository) {
+        return new AddGenreCommandHandler(genreRepository, audioBookRepository);
     }
 }
