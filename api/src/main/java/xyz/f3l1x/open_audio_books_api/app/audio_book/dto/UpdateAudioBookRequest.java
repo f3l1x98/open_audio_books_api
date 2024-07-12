@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateAudioBookRequest {
+public class UpdateAudioBookRequest {
     @JsonProperty()
     private String title;
     @JsonProperty()
