@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IJpaEpisodeRepository extends JpaRepository<EpisodeEntity, Long> {
     List<EpisodeEntity> findAllByIdIn(List<Long> ids);
+    List<EpisodeEntity> findAllByAudioBook_Id(Long audioBookId);
 }

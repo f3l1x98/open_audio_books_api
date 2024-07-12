@@ -28,4 +28,10 @@ public class JpaEpisodeRepository implements IEpisodeRepository {
         List<EpisodeEntity> entities = repository.findAllByIdIn(ids);
         return this.mapper.map(entities, new TypeToken<List<Episode>>() {}.getType());
     }
+
+    @Override
+    public List<Episode> findAllForAudioBook(Long audioBookId) {
+        List<EpisodeEntity> entities = repository.findAllByAudioBook_Id(audioBookId);
+        return this.mapper.map(entities, new TypeToken<List<Episode>>() {}.getType());
+    }
 }
