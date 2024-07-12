@@ -46,4 +46,9 @@ public class JpaGenreRepository implements IGenreRepository {
         List<GenreEntity> entities = repository.findAllByAudioBooks_Id(audioBookId);
         return mapper.map(entities, new TypeToken<List<Genre>>() {}.getType());
     }
+
+    @Override
+    public void delete(Genre genre) {
+        repository.delete(mapper.map(genre, GenreEntity.class));
+    }
 }
