@@ -10,6 +10,8 @@ import xyz.f3l1x.core.audio_book.command.add_genre.AddGenreCommand;
 import xyz.f3l1x.core.audio_book.command.add_genre.AddGenreCommandHandler;
 import xyz.f3l1x.core.audio_book.command.create.CreateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.create.CreateAudioBookCommandHandler;
+import xyz.f3l1x.core.audio_book.command.remove_genre.RemoveGenreCommand;
+import xyz.f3l1x.core.audio_book.command.remove_genre.RemoveGenreCommandHandler;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommandHandler;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQuery;
@@ -69,5 +71,10 @@ public class CoreBeans {
     @Bean
     public ICommandHandler<AddGenreCommand, AudioBook> addGenreCommandHandler(IAudioBookRepository audioBookRepository, IGenreRepository genreRepository) {
         return new AddGenreCommandHandler(genreRepository, audioBookRepository);
+    }
+
+    @Bean
+    public ICommandHandler<RemoveGenreCommand, AudioBook> removeGenreCommandHandler(IAudioBookRepository audioBookRepository, IGenreRepository genreRepository) {
+        return new RemoveGenreCommandHandler(genreRepository, audioBookRepository);
     }
 }
