@@ -2,11 +2,11 @@ package xyz.f3l1x.infra.episode;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import xyz.f3l1x.core.audio_book.AudioBook;
 import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.episode.IEpisodeRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class JpaEpisodeRepository implements IEpisodeRepository {
     private final ModelMapper mapper;
@@ -24,6 +24,12 @@ public class JpaEpisodeRepository implements IEpisodeRepository {
     }
 
     @Override
+    public Optional<Episode> findById(Long id) {
+        Optional<EpisodeEntity> entity = this.repository.findById(id);
+        return mapper.map(entity, new TypeToken<Optional<Episode>>() {}.getType());
+    }
+
+    @Override
     public List<Episode> findAllByIdIn(List<Long> ids) {
         List<EpisodeEntity> entities = repository.findAllByIdIn(ids);
         return this.mapper.map(entities, new TypeToken<List<Episode>>() {}.getType());
@@ -33,5 +39,10 @@ public class JpaEpisodeRepository implements IEpisodeRepository {
     public List<Episode> findAllForAudioBook(Long audioBookId) {
         List<EpisodeEntity> entities = repository.findAllByAudioBook_Id(audioBookId);
         return this.mapper.map(entities, new TypeToken<List<Episode>>() {}.getType());
+    }
+
+    @Override
+    public void delete(Episode episode) {
+        repository.delete(mapper.map(episode, EpisodeEntity.class));
     }
 }
