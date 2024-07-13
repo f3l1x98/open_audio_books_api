@@ -13,9 +13,8 @@ import xyz.f3l1x.core.shared.cqrs.ICommandHandler;
 import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.AudioBookDto;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.CreateAudioBookRequest;
+import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.UpdateAudioBookRequest;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @RestController()
@@ -76,16 +75,14 @@ public class AudioBookController {
 
     // TODO SLUG https://spring.io/guides/tutorials/spring-boot-kotlin
     @PostMapping("/{id}")
-    public ResponseEntity<AudioBookDto> updateAudioBook(@PathVariable Long id) {
+    public ResponseEntity<AudioBookDto> updateAudioBook(@PathVariable Long id, @RequestBody UpdateAudioBookRequest body) {
         UpdateAudioBookCommand command = new UpdateAudioBookCommand(
                 id,
-                null,
-                null,
-                null,
-                null,
-                null,
-                new ArrayList<>(),
-                new HashSet<>());
+                body.getTitle(),
+                body.getSummary(),
+                body.getReleaseDate(),
+                body.getOngoing(),
+                body.getRating());
 
         AudioBook audioBook;
         try {

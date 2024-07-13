@@ -13,8 +13,6 @@ public record UpdateAudioBookCommand(
         String summary,
         Date releaseDate,
         Boolean ongoing,
-        Integer rating,
-        List<Episode> episodes,
-        Set<Genre> genres
+        Integer rating
 ) {
 }
