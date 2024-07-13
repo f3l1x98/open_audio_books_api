@@ -14,6 +14,4 @@ public class EpisodeDto {
     private String title;
     private String summary;
     private Date releaseDate;
-
-    // TODO ?!?!? private AudioBookDto audioBook;
 }

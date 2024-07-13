@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class JpaAudioBookRepository implements IAudioBookRepository {
-
-    // TODO unsure how mapper handles list of nested objects: https://www.baeldung.com/java-modelmapper-lists
     private final ModelMapper mapper;
     private final IJpaAudioBookRepository repository;
 
