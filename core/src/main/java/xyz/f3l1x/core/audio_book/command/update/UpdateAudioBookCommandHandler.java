@@ -21,7 +21,8 @@ public class UpdateAudioBookCommandHandler implements ICommandHandler<UpdateAudi
             throw new AudioBookNotFoundException(command.id());
         }
         AudioBook book = current.get();
-        // TODO UPDATE
+        book.update(command.title(), command.summary(), command.releaseDate(), command.ongoing(), command.rating());
+
         return repository.save(book);
     }
 }

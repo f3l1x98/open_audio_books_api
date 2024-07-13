@@ -26,6 +26,14 @@ public class AudioBook extends BaseModel {
         return new AudioBook(title, summary, releaseDate, ongoing, rating, new ArrayList<>(), new HashSet<>(genres));
     }
 
+    public void update(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating) {
+        this.title = title;
+        this.summary = summary;
+        this.releaseDate = releaseDate;
+        this.ongoing = ongoing;
+        this.rating = rating;
+    }
+
     public void addNewEpisode(Integer number, String title, String summary, Date releaseDate) throws UniqueEpisodeViolationException {
         boolean numberAlreadyInUse = episodes.stream().anyMatch(episode -> Objects.equals(episode.getNumber(), number));
         boolean titleAlreadyInUse = episodes.stream().anyMatch(episode -> Objects.equals(episode.getTitle(), title));
