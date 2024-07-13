@@ -20,6 +20,8 @@ import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.episode.IEpisodeRepository;
 import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommand;
 import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommandHandler;
+import xyz.f3l1x.core.episode.command.update.UpdateEpisodeCommand;
+import xyz.f3l1x.core.episode.command.update.UpdateEpisodeCommandHandler;
 import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQuery;
 import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQueryHandler;
 import xyz.f3l1x.core.genre.Genre;
@@ -99,5 +101,10 @@ public class CoreBeans {
     @Bean
     public ICommandHandler<DeleteEpisodeCommand, Episode> deleteEpisodeCommandHandler(IEpisodeRepository episodeRepository) {
         return new DeleteEpisodeCommandHandler(episodeRepository);
+    }
+
+    @Bean
+    public ICommandHandler<UpdateEpisodeCommand, Episode> updateEpisodeCommandHandler(IEpisodeRepository episodeRepository) {
+        return new UpdateEpisodeCommandHandler(episodeRepository);
     }
 }
