@@ -27,8 +27,8 @@ dependencies {
     compileOnly libs.lombok
     annotationProcessor libs.lombok
     implementation libs.slf4j.api
-    testImplementation platform(libs.junit.bom)
-    testImplementation libs.junit.jupiter
+    testImplementation platform(testLibs.junit.bom)
+    testImplementation testLibs.junit.jupiter
 }
 
 test {

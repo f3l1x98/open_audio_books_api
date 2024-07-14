@@ -17,9 +17,15 @@ dependencyResolutionManagement {
             library('model-mapper', 'org.modelmapper:modelmapper:3.2.0')
             library('lombok', 'org.projectlombok:lombok:1.18.34')
             library('slf4j-api', 'org.slf4j:slf4j-api:2.0.13')
+        }
+        testLibs {
             def junit5 = version('junit5', '5.10.0')
             library('junit-jupiter', 'org.junit.jupiter', 'junit-jupiter').versionRef(junit5)
             library('junit-bom', 'org.junit', 'junit-bom').versionRef(junit5)
+            library('junit-platform-launcher', 'org.junit.platform', 'junit-platform-launcher').version('1.10.3')
+            def mockito = version('mockito', '5.12.0')
+            library('mockito-core', 'org.mockito', 'mockito-core').versionRef(mockito)
+            library('mockito-junit', 'org.mockito', 'mockito-junit-jupiter').versionRef(mockito)
         }
     }
 }

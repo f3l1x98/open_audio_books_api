@@ -37,8 +37,8 @@ dependencies {
     implementation libs.model.mapper
     compileOnly libs.lombok
     annotationProcessor libs.lombok
-    testImplementation platform(libs.junit.bom)
-    testImplementation libs.junit.jupiter
+    testImplementation platform(testLibs.junit.bom)
+    testImplementation testLibs.junit.jupiter
     runtimeOnly 'com.h2database:h2'
 }
 
