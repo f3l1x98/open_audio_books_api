@@ -29,6 +29,8 @@ dependencies {
     implementation libs.slf4j.api
     testImplementation platform(testLibs.junit.bom)
     testImplementation testLibs.junit.jupiter
+    testImplementation testLibs.mockito.core
+    testImplementation testLibs.mockito.junit
 }
 
 test {
