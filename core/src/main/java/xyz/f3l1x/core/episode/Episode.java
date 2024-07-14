@@ -19,7 +19,6 @@ public class Episode extends BaseModel {
     private AudioBook audioBook;
 
     public static Episode create(Integer number, String title, String summary, Date releaseDate, AudioBook audioBook) {
-        System.out.println("Test Episode factory");
         return new Episode(number, title, summary, releaseDate, audioBook);
     }
 
