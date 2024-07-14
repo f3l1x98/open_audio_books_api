@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "audio_book")
@@ -21,8 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class AudioBookEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(unique = true, nullable = false)
     private String title;

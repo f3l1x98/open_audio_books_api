@@ -7,6 +7,7 @@ import xyz.f3l1x.core.audio_book.IAudioBookRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class JpaAudioBookRepository implements IAudioBookRepository {
     private final ModelMapper mapper;
@@ -25,7 +26,7 @@ public class JpaAudioBookRepository implements IAudioBookRepository {
     }
 
     @Override
-    public Optional<AudioBook> findById(Long id) {
+    public Optional<AudioBook> findById(UUID id) {
         Optional<AudioBookEntity> entity = repository.findById(id);
         return mapper.map(entity, new TypeToken<Optional<AudioBook>>() {}.getType());
     }

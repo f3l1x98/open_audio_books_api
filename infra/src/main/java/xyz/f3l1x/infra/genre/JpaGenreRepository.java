@@ -7,6 +7,7 @@ import xyz.f3l1x.core.genre.IGenreRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class JpaGenreRepository implements IGenreRepository {
     private final ModelMapper mapper;
@@ -24,7 +25,7 @@ public class JpaGenreRepository implements IGenreRepository {
     }
 
     @Override
-    public Optional<Genre> findById(Long id) {
+    public Optional<Genre> findById(UUID id) {
         Optional<GenreEntity> entity = this.repository.findById(id);
         return mapper.map(entity, new TypeToken<Optional<Genre>>() {}.getType());
     }
@@ -36,13 +37,13 @@ public class JpaGenreRepository implements IGenreRepository {
     }
 
     @Override
-    public List<Genre> findAllByIdIn(List<Long> ids) {
+    public List<Genre> findAllByIdIn(List<UUID> ids) {
         List<GenreEntity> entities = repository.findAllByIdIn(ids);
         return this.mapper.map(entities, new TypeToken<List<Genre>>() {}.getType());
     }
 
     @Override
-    public List<Genre> findAllForAudioBook(Long audioBookId) {
+    public List<Genre> findAllForAudioBook(UUID audioBookId) {
         List<GenreEntity> entities = repository.findAllByAudioBooks_Id(audioBookId);
         return mapper.map(entities, new TypeToken<List<Genre>>() {}.getType());
     }

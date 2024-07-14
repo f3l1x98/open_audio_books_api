@@ -7,6 +7,7 @@ import xyz.f3l1x.core.episode.IEpisodeRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class JpaEpisodeRepository implements IEpisodeRepository {
     private final ModelMapper mapper;
@@ -24,19 +25,19 @@ public class JpaEpisodeRepository implements IEpisodeRepository {
     }
 
     @Override
-    public Optional<Episode> findById(Long id) {
+    public Optional<Episode> findById(UUID id) {
         Optional<EpisodeEntity> entity = this.repository.findById(id);
         return mapper.map(entity, new TypeToken<Optional<Episode>>() {}.getType());
     }
 
     @Override
-    public List<Episode> findAllByIdIn(List<Long> ids) {
+    public List<Episode> findAllByIdIn(List<UUID> ids) {
         List<EpisodeEntity> entities = repository.findAllByIdIn(ids);
         return this.mapper.map(entities, new TypeToken<List<Episode>>() {}.getType());
     }
 
     @Override
-    public List<Episode> findAllForAudioBook(Long audioBookId) {
+    public List<Episode> findAllForAudioBook(UUID audioBookId) {
         List<EpisodeEntity> entities = repository.findAllByAudioBook_Id(audioBookId);
         return this.mapper.map(entities, new TypeToken<List<Episode>>() {}.getType());
     }

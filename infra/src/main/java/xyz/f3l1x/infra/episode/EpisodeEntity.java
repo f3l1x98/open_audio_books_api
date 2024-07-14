@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import xyz.f3l1x.infra.audio_book.AudioBookEntity;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Table(name = "episode")
@@ -15,8 +16,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class EpisodeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(nullable = false)
     private Integer number;

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS public.audio_book (
-    id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    id UUID NOT NULL PRIMARY KEY,
     title VARCHAR(255) NOT NULL UNIQUE,
     summary VARCHAR(255),
     release_date timestamp without time zone NOT NULL,
@@ -12,12 +12,12 @@ CREATE TABLE IF NOT EXISTS public.audio_book (
 CREATE INDEX IF NOT EXISTS idx_audio_book_title ON audio_book(title);
 
 CREATE TABLE IF NOT EXISTS public.episode (
-    id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    id UUID NOT NULL PRIMARY KEY,
     number INTEGER NOT NULL,
     title VARCHAR(255) NOT NULL,
     summary VARCHAR(255),
     release_date timestamp without time zone NOT NULL,
-    audio_book_id BIGINT NOT NULL,
+    audio_book_id UUID NOT NULL,
     created_date timestamp without time zone NOT NULL,
     updated_date timestamp without time zone NOT NULL,
     CONSTRAINT uc_number_audio_book_id UNIQUE (number, audio_book_id),
@@ -26,15 +26,15 @@ CREATE TABLE IF NOT EXISTS public.episode (
 );
 
 CREATE TABLE IF NOT EXISTS public.genre (
-    id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    id UUID NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE INDEX IF NOT EXISTS idx_genre_name ON genre(name);
 
 CREATE TABLE IF NOT EXISTS public.rt_audio_book_genre (
-    audio_book_id BIGINT NOT NULL,
-    genre_id BIGINT NOT NULL,
+    audio_book_id UUID NOT NULL,
+    genre_id UUID NOT NULL,
     CONSTRAINT pk_audio_book_genre PRIMARY KEY (audio_book_id, genre_id),
     CONSTRAINT fk_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
     CONSTRAINT fk_genre FOREIGN KEY (genre_id) REFERENCES public.genre(id)

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import xyz.f3l1x.infra.audio_book.AudioBookEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "genre")
@@ -13,8 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class GenreEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(unique = true, nullable = false)
     private String name;
