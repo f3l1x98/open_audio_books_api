@@ -8,6 +8,8 @@ import xyz.f3l1x.core.audio_book.AudioBook;
 import xyz.f3l1x.core.audio_book.IAudioBookRepository;
 import xyz.f3l1x.core.audio_book.command.add_genre.AddGenreCommand;
 import xyz.f3l1x.core.audio_book.command.add_genre.AddGenreCommandHandler;
+import xyz.f3l1x.core.audio_book.command.add_new_episode.AddNewEpisodeCommand;
+import xyz.f3l1x.core.audio_book.command.add_new_episode.AddNewEpisodeCommandHandler;
 import xyz.f3l1x.core.audio_book.command.create.CreateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.create.CreateAudioBookCommandHandler;
 import xyz.f3l1x.core.audio_book.command.remove_genre.RemoveGenreCommand;
@@ -106,5 +108,10 @@ public class CoreBeans {
     @Bean
     public ICommandHandler<UpdateEpisodeCommand, Episode> updateEpisodeCommandHandler(IEpisodeRepository episodeRepository) {
         return new UpdateEpisodeCommandHandler(episodeRepository);
+    }
+
+    @Bean
+    public ICommandHandler<AddNewEpisodeCommand, Episode> addNewEpisodeCommandHandler(IAudioBookRepository audioBookRepository) {
+        return new AddNewEpisodeCommandHandler(audioBookRepository);
     }
 }
