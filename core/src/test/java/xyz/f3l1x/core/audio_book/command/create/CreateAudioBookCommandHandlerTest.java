@@ -15,6 +15,7 @@ import xyz.f3l1x.core.shared.BaseModel;
 import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -52,7 +53,7 @@ public class CreateAudioBookCommandHandlerTest {
                 new ArrayList<>());
 
         when(genreRepository.findAllByIdIn(command.genreIds())).thenReturn(new ArrayList<>());
-        when(audioBookRepository.save(expectedAudioBook)).thenReturn(expectedAudioBook);
+        when(audioBookRepository.save(refEq(expectedAudioBook, "id"))).thenReturn(expectedAudioBook);
 
         Assertions.assertDoesNotThrow(() -> {
             AudioBook result = commandHandler.handle(command);
@@ -65,7 +66,6 @@ public class CreateAudioBookCommandHandlerTest {
     @Test
     public void testHandle_success_withGenres() {
         Genre mockGenre = new Genre("Mock Genre");
-        mockGenre.setId(0L);
         AudioBook expectedAudioBook = new AudioBook(
                 "Mock Title",
                 "Mock summary",
@@ -83,7 +83,8 @@ public class CreateAudioBookCommandHandlerTest {
                 expectedAudioBook.getGenres().stream().map(BaseModel::getId).toList());
 
         when(genreRepository.findAllByIdIn(command.genreIds())).thenReturn(List.of(mockGenre));
-        when(audioBookRepository.save(expectedAudioBook)).thenReturn(expectedAudioBook);
+        // TODO id generation now part of constructor -> cannot use expectedAudioBook due to different ids
+        when(audioBookRepository.save(refEq(expectedAudioBook, "id"))).thenReturn(expectedAudioBook);
 
         Assertions.assertDoesNotThrow(() -> {
             AudioBook result = commandHandler.handle(command);
@@ -96,7 +97,6 @@ public class CreateAudioBookCommandHandlerTest {
     @Test
     public void testHandle_success_withGenres_genreNotFound() {
         Genre mockGenre = new Genre("Mock Genre");
-        mockGenre.setId(0L);
         AudioBook expectedAudioBook = new AudioBook(
                 "Mock Title",
                 "Mock summary",
@@ -114,7 +114,7 @@ public class CreateAudioBookCommandHandlerTest {
                 List.of(mockGenre.getId()));
 
         when(genreRepository.findAllByIdIn(command.genreIds())).thenReturn(new ArrayList<Genre>());
-        when(audioBookRepository.save(expectedAudioBook)).thenReturn(expectedAudioBook);
+        when(audioBookRepository.save(refEq(expectedAudioBook, "id"))).thenReturn(expectedAudioBook);
 
         Assertions.assertDoesNotThrow(() -> {
             AudioBook result = commandHandler.handle(command);
