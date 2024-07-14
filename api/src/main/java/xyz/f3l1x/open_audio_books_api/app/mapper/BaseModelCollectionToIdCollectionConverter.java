@@ -4,10 +4,11 @@ import org.modelmapper.AbstractConverter;
 import xyz.f3l1x.core.shared.BaseModel;
 
 import java.util.Collection;
+import java.util.UUID;
 
-public class BaseModelCollectionToIdCollectionConverter extends AbstractConverter<Collection<BaseModel>, Collection<Long>> {
+public class BaseModelCollectionToIdCollectionConverter extends AbstractConverter<Collection<BaseModel>, Collection<UUID>> {
     @Override
-    protected Collection<Long> convert(Collection<BaseModel> baseModels) {
+    protected Collection<UUID> convert(Collection<BaseModel> baseModels) {
         return baseModels.stream().map(BaseModel::getId).toList();
     }
 }

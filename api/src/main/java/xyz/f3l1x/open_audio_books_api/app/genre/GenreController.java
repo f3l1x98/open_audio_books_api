@@ -16,6 +16,7 @@ import xyz.f3l1x.open_audio_books_api.app.genre.dto.GenreDto;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController()
 @RequestMapping("/api/v1/genre")
@@ -38,7 +39,7 @@ public class GenreController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<GenreDto>> getAllGenres(@RequestParam("audioBookId") Optional<Long> audioBookId) {
+    public ResponseEntity<List<GenreDto>> getAllGenres(@RequestParam("audioBookId") Optional<UUID> audioBookId) {
         FindAllGenreQuery query = new FindAllGenreQuery(audioBookId);
 
         List<Genre> result;
@@ -66,7 +67,7 @@ public class GenreController {
     }
 
     @DeleteMapping("/{genreId}")
-    public ResponseEntity<GenreDto> deleteGenre(@PathVariable Long genreId) {
+    public ResponseEntity<GenreDto> deleteGenre(@PathVariable UUID genreId) {
         DeleteGenreCommand command = new DeleteGenreCommand(genreId);
 
         Genre result;

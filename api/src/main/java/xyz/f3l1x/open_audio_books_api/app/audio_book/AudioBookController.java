@@ -16,6 +16,7 @@ import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.CreateAudioBookRequest;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.UpdateAudioBookRequest;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController()
 @RequestMapping("/api/v1/audio-book")
@@ -74,8 +75,8 @@ public class AudioBookController {
     }
 
     // TODO SLUG https://spring.io/guides/tutorials/spring-boot-kotlin
-    @PostMapping("/{id}")
-    public ResponseEntity<AudioBookDto> updateAudioBook(@PathVariable Long id, @RequestBody UpdateAudioBookRequest body) {
+    @PutMapping("/{id}")
+    public ResponseEntity<AudioBookDto> updateAudioBook(@PathVariable UUID id, @RequestBody UpdateAudioBookRequest body) {
         UpdateAudioBookCommand command = new UpdateAudioBookCommand(
                 id,
                 body.getTitle(),

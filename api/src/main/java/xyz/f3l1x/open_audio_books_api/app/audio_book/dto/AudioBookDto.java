@@ -5,17 +5,18 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 public class AudioBookDto {
-    private Long id;
+    private UUID id;
     private String title;
     private String summary;
     private Date releaseDate;
     private Boolean ongoing;
     private Integer rating;
 
-    private List<Long> episodeIds;
-    private List<Long> genreIds;
+    private List<UUID> episodeIds;
+    private List<UUID> genreIds;
 }

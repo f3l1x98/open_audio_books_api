@@ -15,6 +15,7 @@ import xyz.f3l1x.open_audio_books_api.app.episode.dto.EpisodeDto;
 import xyz.f3l1x.open_audio_books_api.app.episode.dto.UpdateEpisodeRequest;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController()
 @RequestMapping("/api/v1/audio-book/{audioBookId}/episode")
@@ -37,7 +38,7 @@ public class EpisodeController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<EpisodeDto>> getAllEpisodesForAudioBook(@PathVariable Long audioBookId) {
+    public ResponseEntity<List<EpisodeDto>> getAllEpisodesForAudioBook(@PathVariable UUID audioBookId) {
         FindAllForAudioBookEpisodeQuery query = new FindAllForAudioBookEpisodeQuery(audioBookId);
 
         List<Episode> result;
@@ -50,8 +51,14 @@ public class EpisodeController {
         return ResponseEntity.ok(mapper.map(result, new TypeToken<List<EpisodeDto>>() {}.getType()));
     }
 
+    @PostMapping("")
+    public ResponseEntity<EpisodeDto> createEpisode() {
+        // TODO
+        return ResponseEntity.internalServerError().build();
+    }
+
     @DeleteMapping("/{episodeId}")
-    public ResponseEntity<EpisodeDto> deleteEpisode(@PathVariable Long episodeId) {
+    public ResponseEntity<EpisodeDto> deleteEpisode(@PathVariable UUID episodeId) {
         DeleteEpisodeCommand command = new DeleteEpisodeCommand(episodeId);
 
         Episode result;
@@ -67,7 +74,7 @@ public class EpisodeController {
     }
 
     @PutMapping("/{episodeId}")
-    public ResponseEntity<EpisodeDto> updateEpisode(@PathVariable Long episodeId, @RequestBody UpdateEpisodeRequest body) {
+    public ResponseEntity<EpisodeDto> updateEpisode(@PathVariable UUID episodeId, @RequestBody UpdateEpisodeRequest body) {
         UpdateEpisodeCommand command = new UpdateEpisodeCommand(
                 episodeId,
                 body.getNumber(),
