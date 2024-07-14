@@ -2,8 +2,6 @@ package xyz.f3l1x.core.audio_book.command.create;
 
 import xyz.f3l1x.core.audio_book.AudioBook;
 import xyz.f3l1x.core.audio_book.IAudioBookRepository;
-import xyz.f3l1x.core.episode.Episode;
-import xyz.f3l1x.core.episode.IEpisodeRepository;
 import xyz.f3l1x.core.genre.Genre;
 import xyz.f3l1x.core.genre.IGenreRepository;
 import xyz.f3l1x.core.shared.cqrs.ICommandHandler;
