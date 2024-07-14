@@ -1,4 +1,6 @@
 package xyz.f3l1x.core.genre.command.delete;
 
-public record DeleteGenreCommand(Long genreId) {
+import java.util.UUID;
+
+public record DeleteGenreCommand(UUID genreId) {
 }

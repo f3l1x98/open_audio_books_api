@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -23,5 +24,5 @@ public class CreateAudioBookRequest {
     @JsonProperty()
     private Integer rating;
     @JsonProperty()
-    private List<Long> genreIds;
+    private List<UUID> genreIds;
 }

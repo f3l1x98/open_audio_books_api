@@ -6,6 +6,7 @@ import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class FindAllGenreQueryHandler implements IQueryHandler<FindAllGenreQuery, List<Genre>> {
     private final IGenreRepository repository;
@@ -16,7 +17,7 @@ public class FindAllGenreQueryHandler implements IQueryHandler<FindAllGenreQuery
 
     @Override
     public List<Genre> handle(FindAllGenreQuery query) {
-        Optional<Long> audioBookId = query.forAudioBook();
+        Optional<UUID> audioBookId = query.forAudioBook();
         List<Genre> genres;
         if (audioBookId.isPresent()) {
             genres = repository.findAllForAudioBook(audioBookId.get());

@@ -2,11 +2,15 @@ package xyz.f3l1x.core.shared;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public abstract class BaseModel {
-    private Long id;
+    private UUID id;
+
+    protected BaseModel() {
+        this.id = UUID.randomUUID();
+    }
 }
