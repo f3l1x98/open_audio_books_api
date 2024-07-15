@@ -26,6 +26,11 @@ public class JpaAudioBookRepository implements IAudioBookRepository {
     }
 
     @Override
+    public void delete(AudioBook audioBook) {
+        repository.delete(mapper.map(audioBook, AudioBookEntity.class));
+    }
+
+    @Override
     public Optional<AudioBook> findById(UUID id) {
         Optional<AudioBookEntity> entity = repository.findById(id);
         return mapper.map(entity, new TypeToken<Optional<AudioBook>>() {}.getType());

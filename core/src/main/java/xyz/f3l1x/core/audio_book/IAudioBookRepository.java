@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IAudioBookRepository extends IBaseRepository<AudioBook> {
     List<AudioBook> findAll();
+    void delete(AudioBook audioBook);
 }
