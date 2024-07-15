@@ -5,6 +5,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import xyz.f3l1x.core.audio_book.AudioBook;
+import xyz.f3l1x.core.audio_book.command.delete.DeleteAudioBookCommand;
 import xyz.f3l1x.core.audio_book.exception.AudioBookNotFoundException;
 import xyz.f3l1x.core.audio_book.command.create.CreateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
@@ -25,17 +26,20 @@ public class AudioBookController {
     private final IQueryHandler<FindAllAudioBookQuery, List<AudioBook>> findAllAudioBookQueryHandler;
     private final ICommandHandler<CreateAudioBookCommand, AudioBook> createAudioBookCommandHandler;
     private final ICommandHandler<UpdateAudioBookCommand, AudioBook> updateAudioBookCommandHandler;
+    private final ICommandHandler<DeleteAudioBookCommand, AudioBook> deleteAudioBookCommandHandler;
 
     public AudioBookController(
             ModelMapper mapper,
             IQueryHandler<FindAllAudioBookQuery, List<AudioBook>> findAllAudioBookQueryHandler,
             ICommandHandler<CreateAudioBookCommand, AudioBook> createAudioBookCommandHandler,
-            ICommandHandler<UpdateAudioBookCommand, AudioBook> updateAudioBookCommandHandler
+            ICommandHandler<UpdateAudioBookCommand, AudioBook> updateAudioBookCommandHandler,
+            ICommandHandler<DeleteAudioBookCommand, AudioBook> deleteAudioBookCommandHandler
     ) {
         this.mapper = mapper;
         this.findAllAudioBookQueryHandler = findAllAudioBookQueryHandler;
         this.createAudioBookCommandHandler = createAudioBookCommandHandler;
         this.updateAudioBookCommandHandler = updateAudioBookCommandHandler;
+        this.deleteAudioBookCommandHandler = deleteAudioBookCommandHandler;
     }
 
     @GetMapping("")
@@ -46,7 +50,6 @@ public class AudioBookController {
         try {
             result = findAllAudioBookQueryHandler.handle(query);
         } catch (Exception e) {
-            // TODO handle with corresponding response code
             return ResponseEntity.internalServerError().build();
         }
 
@@ -67,14 +70,12 @@ public class AudioBookController {
         try {
             audioBook = createAudioBookCommandHandler.handle(command);
         } catch (Exception e) {
-            // TODO handle with corresponding response code
             return ResponseEntity.internalServerError().build();
         }
 
         return ResponseEntity.ok(mapper.map(audioBook, AudioBookDto.class));
     }
 
-    // TODO SLUG https://spring.io/guides/tutorials/spring-boot-kotlin
     @PutMapping("/{id}")
     public ResponseEntity<AudioBookDto> updateAudioBook(@PathVariable UUID id, @RequestBody UpdateAudioBookRequest body) {
         UpdateAudioBookCommand command = new UpdateAudioBookCommand(
@@ -91,7 +92,22 @@ public class AudioBookController {
         } catch (AudioBookNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            // TODO handle with corresponding response code
+            return ResponseEntity.internalServerError().build();
+        }
+
+        return ResponseEntity.ok(mapper.map(audioBook, AudioBookDto.class));
+    }
+
+    @DeleteMapping("/{audioBookId}")
+    public ResponseEntity<AudioBookDto> deleteAudioBook(@PathVariable UUID audioBookId) {
+        DeleteAudioBookCommand command = new DeleteAudioBookCommand(audioBookId);
+
+        AudioBook audioBook;
+        try {
+            audioBook = deleteAudioBookCommandHandler.handle(command);
+        } catch (AudioBookNotFoundException e) {
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
 
