@@ -22,6 +22,4 @@ public class UpdateAudioBookRequest {
     private Boolean ongoing;
     @JsonProperty()
     private Integer rating;
-    @JsonProperty()
-    private List<Long> genreIds;
 }
