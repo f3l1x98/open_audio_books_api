@@ -18,7 +18,7 @@ import xyz.f3l1x.core.genre.Genre;
 import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AddNewEpisodeCommandHandlerTest {
+public class AddNewEpisodeCommandHandlerTests {
 
     private AddNewEpisodeCommandHandler commandHandler;
 

@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateAudioBookCommandHandlerTest {
+public class CreateAudioBookCommandHandlerTests {
 
     private CreateAudioBookCommandHandler commandHandler;
 
