@@ -108,7 +108,7 @@ public class EpisodeController {
         try {
             result = updateEpisodeCommandHandler.handle(command);
         } catch (EpisodeNotFoundException e) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
