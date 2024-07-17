@@ -8,5 +8,4 @@ import java.util.UUID;
 public interface IEpisodeRepository extends IBaseRepository<Episode> {
     List<Episode> findAllByIdIn(List<UUID> ids);
     List<Episode> findAllForAudioBook(UUID audioBookId);
-    void delete(Episode episode);
 }

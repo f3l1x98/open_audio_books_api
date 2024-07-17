@@ -9,5 +9,4 @@ public interface IGenreRepository extends IBaseRepository<Genre> {
     List<Genre> findAll();
     List<Genre> findAllByIdIn(List<UUID> ids);
     List<Genre> findAllForAudioBook(UUID audioBookId);
-    void delete(Genre genre);
 }
