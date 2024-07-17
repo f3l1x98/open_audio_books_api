@@ -43,8 +43,7 @@ public class AudioBook extends BaseModel {
         }
 
         Episode newEpisode = Episode.create(number, title, summary, releaseDate, this);
-        List<Episode> newEpisodes = new ArrayList<>(episodes) {{ add(newEpisode); }};
-        setEpisodes(newEpisodes);
+        episodes.add(newEpisode);
         return newEpisode;
     }
 
