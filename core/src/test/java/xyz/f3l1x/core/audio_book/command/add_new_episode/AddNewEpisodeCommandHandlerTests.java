@@ -30,7 +30,7 @@ public class AddNewEpisodeCommandHandlerTests {
     @BeforeEach
     public void init() {
         Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
-        mockAudioBook = new AudioBook("Mock title", "Mock summary", new Date(), true, 0, List.of(mockEpisode), new HashSet<Genre>());
+        mockAudioBook = new AudioBook("Mock title", "Mock summary", new Date(), true, 0, new ArrayList<>(List.of(mockEpisode)), new HashSet<Genre>());
 
         this.commandHandler = new AddNewEpisodeCommandHandler(audioBookRepository);
     }
