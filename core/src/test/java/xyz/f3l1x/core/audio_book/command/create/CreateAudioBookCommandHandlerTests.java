@@ -83,7 +83,6 @@ public class CreateAudioBookCommandHandlerTests {
                 expectedAudioBook.getGenres().stream().map(BaseModel::getId).toList());
 
         when(genreRepository.findAllByIdIn(command.genreIds())).thenReturn(List.of(mockGenre));
-        // TODO id generation now part of constructor -> cannot use expectedAudioBook due to different ids
         when(audioBookRepository.save(refEq(expectedAudioBook, "id"))).thenReturn(expectedAudioBook);
 
         Assertions.assertDoesNotThrow(() -> {
