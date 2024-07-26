@@ -20,7 +20,16 @@ import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommandHandler;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQuery;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQueryHandler;
+import xyz.f3l1x.core.author.Author;
 import xyz.f3l1x.core.author.IAuthorRepository;
+import xyz.f3l1x.core.author.command.create.CreateAuthorCommand;
+import xyz.f3l1x.core.author.command.create.CreateAuthorCommandHandler;
+import xyz.f3l1x.core.author.command.delete.DeleteAuthorCommand;
+import xyz.f3l1x.core.author.command.delete.DeleteAuthorCommandHandler;
+import xyz.f3l1x.core.author.command.update.UpdateAuthorCommand;
+import xyz.f3l1x.core.author.command.update.UpdateAuthorCommandHandler;
+import xyz.f3l1x.core.author.query.find_all.FindAllAuthorQuery;
+import xyz.f3l1x.core.author.query.find_all.FindAllAuthorQueryHandler;
 import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.episode.IEpisodeRepository;
 import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommand;
@@ -122,5 +131,25 @@ public class CoreBeans {
     @Bean
     public ICommandHandler<DeleteAudioBookCommand, AudioBook> deleteAudioBookCommandHandler(IAudioBookRepository audioBookRepository) {
         return new DeleteAudioBookCommandHandler(audioBookRepository);
+    }
+
+    @Bean
+    public IQueryHandler<FindAllAuthorQuery, List<Author>> findAllAuthorQueryHandler(IAuthorRepository authorRepository) {
+        return new FindAllAuthorQueryHandler(authorRepository);
+    }
+
+    @Bean
+    public ICommandHandler<CreateAuthorCommand, Author> createAuthorCommandHandler(IAuthorRepository authorRepository) {
+        return new CreateAuthorCommandHandler(authorRepository);
+    }
+
+    @Bean
+    public ICommandHandler<UpdateAuthorCommand, Author> updateAuthorCommandHandler(IAuthorRepository authorRepository) {
+        return new UpdateAuthorCommandHandler(authorRepository);
+    }
+
+    @Bean
+    public ICommandHandler<DeleteAuthorCommand, Author> deleteAuthorCommandHandler(IAuthorRepository authorRepository) {
+        return new DeleteAuthorCommandHandler(authorRepository);
     }
 }
