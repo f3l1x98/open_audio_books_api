@@ -1,5 +1,6 @@
 package xyz.f3l1x.open_audio_books_api.app.audio_book;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +58,7 @@ public class AudioBookController {
     }
 
     @PostMapping()
-    public ResponseEntity<AudioBookDto> createAudioBook(@RequestBody CreateAudioBookRequest body) {
+    public ResponseEntity<AudioBookDto> createAudioBook(@Valid @RequestBody CreateAudioBookRequest body) {
         CreateAudioBookCommand command = new CreateAudioBookCommand(
                 body.getTitle(),
                 body.getSummary(),

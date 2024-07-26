@@ -30,6 +30,7 @@ dependencies {
     implementation project(':infra')
     implementation project(':core')
     implementation libs.model.mapper
+    implementation libs.spring.boot.starter.validation
     compileOnly libs.lombok
     annotationProcessor libs.lombok
     testImplementation libs.spring.boot.starter.test

@@ -1,6 +1,7 @@
 package xyz.f3l1x.open_audio_books_api.app.audio_book.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,6 @@ public class CreateAudioBookRequest {
     @JsonProperty()
     private List<UUID> genreIds;
     @JsonProperty()
-    // TODO https://www.baeldung.com/spring-boot-bean-validation
+    @NotEmpty(message = "At least one author required")
     private List<UUID> authorIds;
 }
