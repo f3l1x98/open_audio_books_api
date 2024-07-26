@@ -20,6 +20,7 @@ import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommandHandler;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQuery;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQueryHandler;
+import xyz.f3l1x.core.author.IAuthorRepository;
 import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.episode.IEpisodeRepository;
 import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommand;
@@ -63,8 +64,8 @@ public class CoreBeans {
     }
 
     @Bean
-    public ICommandHandler<CreateAudioBookCommand, AudioBook> createAudioBookCommandHandler(IAudioBookRepository audioBookRepository, IGenreRepository genreRepository) {
-        return new CreateAudioBookCommandHandler(audioBookRepository, genreRepository);
+    public ICommandHandler<CreateAudioBookCommand, AudioBook> createAudioBookCommandHandler(IAudioBookRepository audioBookRepository, IGenreRepository genreRepository, IAuthorRepository authorRepository) {
+        return new CreateAudioBookCommandHandler(audioBookRepository, genreRepository, authorRepository);
     }
 
     @Bean

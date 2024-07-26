@@ -1,7 +1,9 @@
 package xyz.f3l1x.core.audio_book;
 
 import lombok.*;
+import xyz.f3l1x.core.audio_book.exception.AuthorRequiredException;
 import xyz.f3l1x.core.audio_book.exception.UniqueEpisodeViolationException;
+import xyz.f3l1x.core.author.Author;
 import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.genre.Genre;
 import xyz.f3l1x.core.shared.BaseModel;
@@ -21,9 +23,14 @@ public class AudioBook extends BaseModel {
 
     private List<Episode> episodes;
     private Set<Genre> genres;
+    private List<Author> authors;
 
-    public static AudioBook create(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating, List<Genre> genres) {
-        return new AudioBook(title, summary, releaseDate, ongoing, rating, new ArrayList<>(), new HashSet<>(genres));
+    public static AudioBook create(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating, List<Genre> genres, List<Author> authors) throws AuthorRequiredException {
+        if (authors.isEmpty()) {
+            throw new AuthorRequiredException();
+        }
+
+        return new AudioBook(title, summary, releaseDate, ongoing, rating, new ArrayList<>(), new HashSet<>(genres), authors);
     }
 
     public void update(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating) {

@@ -10,6 +10,7 @@ public record CreateAudioBookCommand(
         Date releaseDate,
         Boolean ongoing,
         Integer rating,
-        List<UUID> genreIds
+        List<UUID> genreIds,
+        List<UUID> authorIds
 ) {
 }

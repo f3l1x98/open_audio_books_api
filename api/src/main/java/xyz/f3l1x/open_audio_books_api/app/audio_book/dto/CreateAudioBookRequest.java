@@ -25,4 +25,7 @@ public class CreateAudioBookRequest {
     private Integer rating;
     @JsonProperty()
     private List<UUID> genreIds;
+    @JsonProperty()
+    // TODO https://www.baeldung.com/spring-boot-bean-validation
+    private List<UUID> authorIds;
 }

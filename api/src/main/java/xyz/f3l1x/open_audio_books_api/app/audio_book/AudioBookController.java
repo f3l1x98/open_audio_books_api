@@ -64,7 +64,8 @@ public class AudioBookController {
                 body.getReleaseDate(),
                 body.getOngoing(),
                 body.getRating(),
-                body.getGenreIds());
+                body.getGenreIds(),
+                body.getAuthorIds());
 
         AudioBook audioBook;
         try {

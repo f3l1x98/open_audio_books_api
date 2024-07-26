@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import xyz.f3l1x.core.audio_book.AudioBook;
 import xyz.f3l1x.core.audio_book.IAudioBookRepository;
+import xyz.f3l1x.core.author.IAuthorRepository;
 import xyz.f3l1x.core.genre.Genre;
 import xyz.f3l1x.core.genre.IGenreRepository;
 import xyz.f3l1x.core.shared.BaseModel;
@@ -28,10 +29,12 @@ public class CreateAudioBookCommandHandlerTests {
     private IAudioBookRepository audioBookRepository;
     @Mock
     private IGenreRepository genreRepository;
+    @Mock
+    private IAuthorRepository authorRepository;
 
     @BeforeEach
     public void init() {
-        this.commandHandler = new CreateAudioBookCommandHandler(audioBookRepository, genreRepository);
+        this.commandHandler = new CreateAudioBookCommandHandler(audioBookRepository, genreRepository, authorRepository);
     }
 
     @Test
@@ -43,16 +46,19 @@ public class CreateAudioBookCommandHandlerTests {
                 true,
                 0,
                 new ArrayList<>(),
-                new HashSet<>());
+                new HashSet<>(),
+                new ArrayList<>());
         CreateAudioBookCommand command = new CreateAudioBookCommand(
                 expectedAudioBook.getTitle(),
                 expectedAudioBook.getSummary(),
                 expectedAudioBook.getReleaseDate(),
                 expectedAudioBook.getOngoing(),
                 expectedAudioBook.getRating(),
+                new ArrayList<>(),
                 new ArrayList<>());
 
         when(genreRepository.findAllByIdIn(command.genreIds())).thenReturn(new ArrayList<>());
+        when(authorRepository.findAllByIdIn(command.authorIds())).thenReturn(new ArrayList<>());
         when(audioBookRepository.save(refEq(expectedAudioBook, "id"))).thenReturn(expectedAudioBook);
 
         Assertions.assertDoesNotThrow(() -> {
@@ -73,16 +79,19 @@ public class CreateAudioBookCommandHandlerTests {
                 true,
                 0,
                 new ArrayList<>(),
-                Set.of(mockGenre));
+                Set.of(mockGenre),
+                new ArrayList<>());
         CreateAudioBookCommand command = new CreateAudioBookCommand(
                 expectedAudioBook.getTitle(),
                 expectedAudioBook.getSummary(),
                 expectedAudioBook.getReleaseDate(),
                 expectedAudioBook.getOngoing(),
                 expectedAudioBook.getRating(),
-                expectedAudioBook.getGenres().stream().map(BaseModel::getId).toList());
+                expectedAudioBook.getGenres().stream().map(BaseModel::getId).toList(),
+                new ArrayList<>());
 
         when(genreRepository.findAllByIdIn(command.genreIds())).thenReturn(List.of(mockGenre));
+        when(authorRepository.findAllByIdIn(command.authorIds())).thenReturn(new ArrayList<>());
         when(audioBookRepository.save(refEq(expectedAudioBook, "id"))).thenReturn(expectedAudioBook);
 
         Assertions.assertDoesNotThrow(() -> {
@@ -103,16 +112,19 @@ public class CreateAudioBookCommandHandlerTests {
                 true,
                 0,
                 new ArrayList<>(),
-                new HashSet<>());
+                new HashSet<>(),
+                new ArrayList<>());
         CreateAudioBookCommand command = new CreateAudioBookCommand(
                 expectedAudioBook.getTitle(),
                 expectedAudioBook.getSummary(),
                 expectedAudioBook.getReleaseDate(),
                 expectedAudioBook.getOngoing(),
                 expectedAudioBook.getRating(),
-                List.of(mockGenre.getId()));
+                List.of(mockGenre.getId()),
+                new ArrayList<>());
 
         when(genreRepository.findAllByIdIn(command.genreIds())).thenReturn(new ArrayList<Genre>());
+        when(authorRepository.findAllByIdIn(command.authorIds())).thenReturn(new ArrayList<>());
         when(audioBookRepository.save(refEq(expectedAudioBook, "id"))).thenReturn(expectedAudioBook);
 
         Assertions.assertDoesNotThrow(() -> {
