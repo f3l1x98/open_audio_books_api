@@ -1,4 +1,4 @@
-package xyz.f3l1x.core.narrator.find_all;
+package xyz.f3l1x.core.narrator.query.find_all;
 
 import java.util.Optional;
 import java.util.UUID;
