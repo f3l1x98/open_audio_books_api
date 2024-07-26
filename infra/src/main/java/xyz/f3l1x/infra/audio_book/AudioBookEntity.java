@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import xyz.f3l1x.core.episode.Episode;
-import xyz.f3l1x.core.genre.Genre;
+import xyz.f3l1x.infra.author.AuthorEntity;
 import xyz.f3l1x.infra.episode.EpisodeEntity;
 import xyz.f3l1x.infra.genre.GenreEntity;
 
@@ -54,6 +53,14 @@ public class AudioBookEntity {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<GenreEntity> genres;
+
+    @ManyToMany()
+    @JoinTable(
+            name = "rt_audio_book_authors",
+            joinColumns = @JoinColumn(name = "audio_book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private List<AuthorEntity> authors;
 
     @CreationTimestamp
     private Timestamp createdDate;
