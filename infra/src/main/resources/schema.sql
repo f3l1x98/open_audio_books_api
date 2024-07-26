@@ -39,3 +39,18 @@ CREATE TABLE IF NOT EXISTS public.rt_audio_book_genre (
     CONSTRAINT fk_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
     CONSTRAINT fk_genre FOREIGN KEY (genre_id) REFERENCES public.genre(id)
 );
+
+CREATE TABLE IF NOT EXISTS public.genre (
+    id UUID NOT NULL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    middle_name VARCHAR(255),
+    last_name VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS public.rt_audio_book_author (
+    audio_book_id UUID NOT NULL,
+    author_id UUID NOT NULL,
+    CONSTRAINT pk_audio_book_author PRIMARY KEY (audio_book_id, author_id),
+    CONSTRAINT fk_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
+    CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES public.author(id)
+);
