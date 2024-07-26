@@ -84,7 +84,7 @@ public class GenreControllerTests {
 
         mockMvc.perform(get("/api/v1/genre").param("audioBookId", "invalid"))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$").doesNotExist());
+                .andExpect(jsonPath("$.detail", is("Failed to convert 'audioBookId' with value: 'invalid'")));
     }
 
     @Test
