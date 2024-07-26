@@ -11,7 +11,8 @@ Content-Type: application/json
   "releaseDate": "2019-10-11T09:21:04.981Z",
   "ongoing": true,
   "rating": 0,
-  "genreIds": []
+  "genreIds": [],
+  "authorIds": []
 }
 
 ### PUT update audio book

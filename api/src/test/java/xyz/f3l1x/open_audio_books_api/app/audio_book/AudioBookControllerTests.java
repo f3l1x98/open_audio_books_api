@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,10 +29,7 @@ import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.CreateAudioBookRequest;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.UpdateAudioBookRequest;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @WebMvcTest(AudioBookController.class)
 @Import(ModelMapper.class)
@@ -146,7 +144,7 @@ public class AudioBookControllerTests {
                 mockAudioBook.getOngoing(),
                 mockAudioBook.getRating(),
                 new ArrayList<>(),
-                new ArrayList<>());
+                new ArrayList<>(List.of(UUID.randomUUID())));
         CreateAudioBookCommand expectedCommand = new CreateAudioBookCommand(
                 request.getTitle(),
                 request.getSummary(),
@@ -164,6 +162,43 @@ public class AudioBookControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(mockAudioBook.getId().toString())))
                 .andExpect(jsonPath("$.title", is(mockAudioBook.getTitle())));
+    }
+
+    @Test
+    public void testCreateAudioBook_validationError_authorIdsEmpty() throws Exception {
+        AudioBook mockAudioBook = new AudioBook(
+                "Mock 1",
+                "Mock 1",
+                new Date(),
+                true,
+                0,
+                new ArrayList<>(),
+                new HashSet<>(),
+                new ArrayList<>());
+        CreateAudioBookRequest request = new CreateAudioBookRequest(
+                mockAudioBook.getTitle(),
+                mockAudioBook.getSummary(),
+                mockAudioBook.getReleaseDate(),
+                mockAudioBook.getOngoing(),
+                mockAudioBook.getRating(),
+                new ArrayList<>(),
+                new ArrayList<>());
+        CreateAudioBookCommand expectedCommand = new CreateAudioBookCommand(
+                request.getTitle(),
+                request.getSummary(),
+                request.getReleaseDate(),
+                request.getOngoing(),
+                request.getRating(),
+                request.getGenreIds(),
+                request.getAuthorIds());
+
+        when(createAudioBookCommandHandler.handle(expectedCommand)).thenReturn(mockAudioBook);
+
+        mockMvc.perform(post("/api/v1/audio-book")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(request))).andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.authorIds", is("At least one author required")));
     }
 
     @Test
