@@ -2,10 +2,12 @@ package xyz.f3l1x.core.audio_book;
 
 import lombok.*;
 import xyz.f3l1x.core.audio_book.exception.AuthorRequiredException;
+import xyz.f3l1x.core.audio_book.exception.NarratorRequiredException;
 import xyz.f3l1x.core.audio_book.exception.UniqueEpisodeViolationException;
 import xyz.f3l1x.core.author.Author;
 import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.genre.Genre;
+import xyz.f3l1x.core.narrator.Narrator;
 import xyz.f3l1x.core.shared.BaseModel;
 
 import java.util.*;
@@ -24,13 +26,17 @@ public class AudioBook extends BaseModel {
     private List<Episode> episodes;
     private Set<Genre> genres;
     private List<Author> authors;
+    private List<Narrator> narrators;
 
-    public static AudioBook create(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating, List<Genre> genres, List<Author> authors) throws AuthorRequiredException {
+    public static AudioBook create(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating, List<Genre> genres, List<Author> authors, List<Narrator> narrators) throws AuthorRequiredException, NarratorRequiredException {
         if (authors.isEmpty()) {
             throw new AuthorRequiredException();
         }
+        if (narrators.isEmpty()) {
+            throw new NarratorRequiredException();
+        }
 
-        return new AudioBook(title, summary, releaseDate, ongoing, rating, new ArrayList<>(), new HashSet<>(genres), authors);
+        return new AudioBook(title, summary, releaseDate, ongoing, rating, new ArrayList<>(), new HashSet<>(genres), authors, narrators);
     }
 
     public void update(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating) {

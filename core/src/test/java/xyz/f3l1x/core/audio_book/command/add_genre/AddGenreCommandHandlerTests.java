@@ -44,6 +44,7 @@ public class AddGenreCommandHandlerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         AddGenreCommand command = new AddGenreCommand(mockAudioBook.getId(), mockGenre.getId());
 
@@ -71,6 +72,7 @@ public class AddGenreCommandHandlerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(List.of(mockGenre)),
+                new ArrayList<>(),
                 new ArrayList<>());
         AddGenreCommand command = new AddGenreCommand(mockAudioBook.getId(), mockGenre.getId());
 
@@ -97,6 +99,7 @@ public class AddGenreCommandHandlerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         Genre mockGenre = new Genre("Mock genre");
         AddGenreCommand command = new AddGenreCommand(mockAudioBook.getId(), mockGenre.getId());
@@ -119,6 +122,7 @@ public class AddGenreCommandHandlerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         Genre mockGenre = new Genre("Mock genre");
         AddGenreCommand command = new AddGenreCommand(mockAudioBook.getId(), mockGenre.getId());

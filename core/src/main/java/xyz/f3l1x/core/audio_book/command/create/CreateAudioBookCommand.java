@@ -11,6 +11,7 @@ public record CreateAudioBookCommand(
         Boolean ongoing,
         Integer rating,
         List<UUID> genreIds,
-        List<UUID> authorIds
+        List<UUID> authorIds,
+        List<UUID> narratorIds
 ) {
 }

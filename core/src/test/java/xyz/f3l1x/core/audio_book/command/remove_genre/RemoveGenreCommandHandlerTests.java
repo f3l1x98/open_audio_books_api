@@ -45,6 +45,7 @@ public class RemoveGenreCommandHandlerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(List.of(mockGenre)),
+                new ArrayList<>(),
                 new ArrayList<>());
         RemoveGenreCommand command = new RemoveGenreCommand(mockAudioBook.getId(), mockGenre.getId());
 
@@ -72,6 +73,7 @@ public class RemoveGenreCommandHandlerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         RemoveGenreCommand command = new RemoveGenreCommand(mockAudioBook.getId(), mockGenre.getId());
 
@@ -99,6 +101,7 @@ public class RemoveGenreCommandHandlerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(List.of(mockGenre)),
+                new ArrayList<>(),
                 new ArrayList<>());
         RemoveGenreCommand command = new RemoveGenreCommand(mockAudioBook.getId(), mockGenre.getId());
 
@@ -121,6 +124,7 @@ public class RemoveGenreCommandHandlerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(List.of(mockGenre)),
+                new ArrayList<>(),
                 new ArrayList<>());
         RemoveGenreCommand command = new RemoveGenreCommand(mockAudioBook.getId(), mockGenre.getId());
 

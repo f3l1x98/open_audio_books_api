@@ -38,6 +38,7 @@ public class AddNewEpisodeCommandHandlerTests {
                 0,
                 new ArrayList<>(List.of(mockEpisode)),
                 new HashSet<Genre>(),
+                new ArrayList<>(),
                 new ArrayList<>());
 
         this.commandHandler = new AddNewEpisodeCommandHandler(audioBookRepository);

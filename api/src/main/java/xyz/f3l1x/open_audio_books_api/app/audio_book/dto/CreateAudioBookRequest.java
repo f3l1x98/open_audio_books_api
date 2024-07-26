@@ -29,4 +29,7 @@ public class CreateAudioBookRequest {
     @JsonProperty()
     @NotEmpty(message = "At least one author required")
     private List<UUID> authorIds;
+    @JsonProperty()
+    @NotEmpty(message = "At least one narrator required")
+    private List<UUID> narratorIds;
 }

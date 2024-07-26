@@ -6,9 +6,11 @@ import static org.hamcrest.Matchers.contains;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import xyz.f3l1x.core.audio_book.exception.AuthorRequiredException;
+import xyz.f3l1x.core.audio_book.exception.NarratorRequiredException;
 import xyz.f3l1x.core.audio_book.exception.UniqueEpisodeViolationException;
 import xyz.f3l1x.core.author.Author;
 import xyz.f3l1x.core.episode.Episode;
+import xyz.f3l1x.core.narrator.Narrator;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +22,7 @@ public class AudioBookTests {
     @Test
     public void testCreate_success() {
         Author mockAuthor = new Author("Mock", "Mock", "Mock", new ArrayList<>());
+        Narrator mockNarrator = new Narrator("Mock", "Mock", "Mock", new ArrayList<>());
         AudioBook expectedAudioBook = new AudioBook(
                 "Mock title",
                 "Mock summary",
@@ -28,7 +31,8 @@ public class AudioBookTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
-                List.of(mockAuthor));
+                List.of(mockAuthor),
+                List.of(mockNarrator));
 
         Assertions.assertDoesNotThrow(() -> {
             AudioBook result = AudioBook.create(
@@ -38,7 +42,8 @@ public class AudioBookTests {
                     expectedAudioBook.getOngoing(),
                     expectedAudioBook.getRating(),
                     new ArrayList<>(expectedAudioBook.getGenres()),
-                    expectedAudioBook.getAuthors());
+                    expectedAudioBook.getAuthors(),
+                    expectedAudioBook.getNarrators());
 
             Assertions.assertEquals(result.getTitle(), expectedAudioBook.getTitle());
             Assertions.assertEquals(result.getSummary(), expectedAudioBook.getSummary());
@@ -47,11 +52,13 @@ public class AudioBookTests {
             Assertions.assertEquals(result.getRating(), expectedAudioBook.getRating());
             Assertions.assertEquals(result.getGenres(), expectedAudioBook.getGenres());
             Assertions.assertEquals(result.getAuthors(), expectedAudioBook.getAuthors());
+            Assertions.assertEquals(result.getNarrators(), expectedAudioBook.getNarrators());
         });
     }
 
     @Test
     public void testCreate_authorRequired() {
+        Narrator mockNarrator = new Narrator("Mock", "Mock", "Mock", new ArrayList<>());
         AudioBook expectedAudioBook = new AudioBook(
                 "Mock title",
                 "Mock summary",
@@ -60,7 +67,8 @@ public class AudioBookTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
-                new ArrayList<>());
+                new ArrayList<>(),
+                List.of(mockNarrator));
 
         Assertions.assertThrows(AuthorRequiredException.class, () -> {
             AudioBook.create(
@@ -70,7 +78,35 @@ public class AudioBookTests {
                     expectedAudioBook.getOngoing(),
                     expectedAudioBook.getRating(),
                     new ArrayList<>(expectedAudioBook.getGenres()),
-                    expectedAudioBook.getAuthors());
+                    expectedAudioBook.getAuthors(),
+                    expectedAudioBook.getNarrators());
+        });
+    }
+
+    @Test
+    public void testCreate_narratorRequired() {
+        Author mockAuthor = new Author("Mock", "Mock", "Mock", new ArrayList<>());
+        AudioBook expectedAudioBook = new AudioBook(
+                "Mock title",
+                "Mock summary",
+                new Date(),
+                true,
+                0,
+                new ArrayList<>(),
+                new HashSet<>(),
+                List.of(mockAuthor),
+                new ArrayList<>());
+
+        Assertions.assertThrows(NarratorRequiredException.class, () -> {
+            AudioBook.create(
+                    expectedAudioBook.getTitle(),
+                    expectedAudioBook.getSummary(),
+                    expectedAudioBook.getReleaseDate(),
+                    expectedAudioBook.getOngoing(),
+                    expectedAudioBook.getRating(),
+                    new ArrayList<>(expectedAudioBook.getGenres()),
+                    expectedAudioBook.getAuthors(),
+                    expectedAudioBook.getNarrators());
         });
     }
 
@@ -84,6 +120,7 @@ public class AudioBookTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         Episode expectedEpisode = new Episode(0, "Mock episode title", null, new Date(), audioBook);
 
@@ -113,6 +150,7 @@ public class AudioBookTests {
                 0,
                 new ArrayList<>(List.of(episode)),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         Episode expectedEpisode = new Episode(0, "Mock episode title", null, new Date(), audioBook);
 
@@ -136,6 +174,7 @@ public class AudioBookTests {
                 0,
                 new ArrayList<>(List.of(episode)),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         Episode expectedEpisode = new Episode(1, "Mock episode 0", null, new Date(), audioBook);
 

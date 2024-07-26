@@ -59,6 +59,7 @@ public class AudioBookControllerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>()));
         mockAudioBooks.add(new AudioBook(
                 "Mock 2",
@@ -68,6 +69,7 @@ public class AudioBookControllerTests {
                 0,
                 List.of(new Episode(0, "Episode 0", null, new Date(), null)),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>()));
 
         when(findAllAudioBookQueryHandler.handle(any(FindAllAudioBookQuery.class))).thenReturn(mockAudioBooks);
@@ -97,6 +99,7 @@ public class AudioBookControllerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
 
         when(deleteAudioBookCommandHandler.handle(any(DeleteAudioBookCommand.class))).thenReturn(mockAudioBook);
@@ -117,6 +120,7 @@ public class AudioBookControllerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
 
         when(deleteAudioBookCommandHandler.handle(any(DeleteAudioBookCommand.class))).thenThrow(new AudioBookNotFoundException(mockAudioBook.getId()));
@@ -136,6 +140,7 @@ public class AudioBookControllerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         CreateAudioBookRequest request = new CreateAudioBookRequest(
                 mockAudioBook.getTitle(),
@@ -144,6 +149,7 @@ public class AudioBookControllerTests {
                 mockAudioBook.getOngoing(),
                 mockAudioBook.getRating(),
                 new ArrayList<>(),
+                new ArrayList<>(List.of(UUID.randomUUID())),
                 new ArrayList<>(List.of(UUID.randomUUID())));
         CreateAudioBookCommand expectedCommand = new CreateAudioBookCommand(
                 request.getTitle(),
@@ -152,7 +158,8 @@ public class AudioBookControllerTests {
                 request.getOngoing(),
                 request.getRating(),
                 request.getGenreIds(),
-                request.getAuthorIds());
+                request.getAuthorIds(),
+                request.getNarratorIds());
 
         when(createAudioBookCommandHandler.handle(expectedCommand)).thenReturn(mockAudioBook);
 
@@ -174,6 +181,7 @@ public class AudioBookControllerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         CreateAudioBookRequest request = new CreateAudioBookRequest(
                 mockAudioBook.getTitle(),
@@ -182,7 +190,8 @@ public class AudioBookControllerTests {
                 mockAudioBook.getOngoing(),
                 mockAudioBook.getRating(),
                 new ArrayList<>(),
-                new ArrayList<>());
+                new ArrayList<>(),
+                new ArrayList<>(List.of(UUID.randomUUID())));
         CreateAudioBookCommand expectedCommand = new CreateAudioBookCommand(
                 request.getTitle(),
                 request.getSummary(),
@@ -190,7 +199,8 @@ public class AudioBookControllerTests {
                 request.getOngoing(),
                 request.getRating(),
                 request.getGenreIds(),
-                request.getAuthorIds());
+                request.getAuthorIds(),
+                request.getNarratorIds());
 
         when(createAudioBookCommandHandler.handle(expectedCommand)).thenReturn(mockAudioBook);
 
@@ -199,6 +209,46 @@ public class AudioBookControllerTests {
                         .content(mapper.writeValueAsString(request))).andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.authorIds", is("At least one author required")));
+    }
+
+    @Test
+    public void testCreateAudioBook_validationError_narratorIdsEmpty() throws Exception {
+        AudioBook mockAudioBook = new AudioBook(
+                "Mock 1",
+                "Mock 1",
+                new Date(),
+                true,
+                0,
+                new ArrayList<>(),
+                new HashSet<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
+        CreateAudioBookRequest request = new CreateAudioBookRequest(
+                mockAudioBook.getTitle(),
+                mockAudioBook.getSummary(),
+                mockAudioBook.getReleaseDate(),
+                mockAudioBook.getOngoing(),
+                mockAudioBook.getRating(),
+                new ArrayList<>(),
+                new ArrayList<>(List.of(UUID.randomUUID())),
+                new ArrayList<>());
+        CreateAudioBookCommand expectedCommand = new CreateAudioBookCommand(
+                request.getTitle(),
+                request.getSummary(),
+                request.getReleaseDate(),
+                request.getOngoing(),
+                request.getRating(),
+                request.getGenreIds(),
+                request.getAuthorIds(),
+                request.getNarratorIds());
+
+        when(createAudioBookCommandHandler.handle(expectedCommand)).thenReturn(mockAudioBook);
+
+        mockMvc.perform(post("/api/v1/audio-book")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(request))).andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.narratorIds", is("At least one narrator required")));
     }
 
     @Test
@@ -211,6 +261,7 @@ public class AudioBookControllerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         UpdateAudioBookRequest request = new UpdateAudioBookRequest(
                 mockAudioBook.getTitle(),
@@ -246,6 +297,7 @@ public class AudioBookControllerTests {
                 0,
                 new ArrayList<>(),
                 new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
         UpdateAudioBookRequest request = new UpdateAudioBookRequest(
                 mockAudioBook.getTitle(),
