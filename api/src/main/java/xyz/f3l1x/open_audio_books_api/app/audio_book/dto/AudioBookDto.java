@@ -19,4 +19,6 @@ public class AudioBookDto {
 
     private List<UUID> episodeIds;
     private List<UUID> genreIds;
+    private List<UUID> authorIds;
+    private List<UUID> narratorIds;
 }
