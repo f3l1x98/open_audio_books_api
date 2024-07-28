@@ -57,7 +57,7 @@ public class AudioBookEntity {
 
     @ManyToMany()
     @JoinTable(
-            name = "rt_audio_book_authors",
+            name = "rt_audio_book_author",
             joinColumns = @JoinColumn(name = "audio_book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
@@ -65,7 +65,7 @@ public class AudioBookEntity {
 
     @ManyToMany()
     @JoinTable(
-            name = "rt_audio_book_narrators",
+            name = "rt_audio_book_narrator",
             joinColumns = @JoinColumn(name = "audio_book_id"),
             inverseJoinColumns = @JoinColumn(name = "narrator_id")
     )
