@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS public.rt_audio_book_genre (
     CONSTRAINT fk_genre FOREIGN KEY (genre_id) REFERENCES public.genre(id)
 );
 
-CREATE TABLE IF NOT EXISTS public.genre (
+CREATE TABLE IF NOT EXISTS public.author (
     id UUID NOT NULL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     middle_name VARCHAR(255),
