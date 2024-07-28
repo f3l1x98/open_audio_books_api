@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS public.episode (
     title VARCHAR(255) NOT NULL,
     summary VARCHAR(255),
     release_date timestamp without time zone NOT NULL,
+    duration BIGINT NOT NULL,
     audio_book_id UUID NOT NULL,
     created_date timestamp without time zone NOT NULL,
     updated_date timestamp without time zone NOT NULL,

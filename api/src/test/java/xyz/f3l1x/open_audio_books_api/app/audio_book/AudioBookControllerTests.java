@@ -67,7 +67,7 @@ public class AudioBookControllerTests {
                 new Date(),
                 true,
                 0,
-                List.of(new Episode(0, "Episode 0", null, new Date(), null)),
+                List.of(new Episode(0, "Episode 0", null, new Date(), 10L, null)),
                 new HashSet<>(),
                 new ArrayList<>(),
                 new ArrayList<>()));

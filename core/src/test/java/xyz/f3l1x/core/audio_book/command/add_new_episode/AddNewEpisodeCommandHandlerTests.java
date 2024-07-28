@@ -29,7 +29,7 @@ public class AddNewEpisodeCommandHandlerTests {
 
     @BeforeEach
     public void init() {
-        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
         mockAudioBook = new AudioBook(
                 "Mock title",
                 "Mock summary",
@@ -46,7 +46,7 @@ public class AddNewEpisodeCommandHandlerTests {
 
     @Test
     public void testHandle_validNewEpisode() {
-        AddNewEpisodeCommand command = new AddNewEpisodeCommand(mockAudioBook.getId(), 1, "Episode 1", null, new Date());
+        AddNewEpisodeCommand command = new AddNewEpisodeCommand(mockAudioBook.getId(), 1, "Episode 1", null, new Date(), 10L);
 
         when(audioBookRepository.findById(command.audioBookId())).thenReturn(Optional.of(mockAudioBook));
 
@@ -61,7 +61,7 @@ public class AddNewEpisodeCommandHandlerTests {
 
     @Test
     public void testHandle_audioBookNotFound() {
-        AddNewEpisodeCommand command = new AddNewEpisodeCommand(mockAudioBook.getId(), 0, "Episode 1", null, new Date());
+        AddNewEpisodeCommand command = new AddNewEpisodeCommand(mockAudioBook.getId(), 0, "Episode 1", null, new Date(), 10L);
 
         when(audioBookRepository.findById(command.audioBookId())).thenReturn(Optional.empty());
 
@@ -76,7 +76,7 @@ public class AddNewEpisodeCommandHandlerTests {
 
     @Test
     public void testHandle_duplicateNumber() {
-        AddNewEpisodeCommand command = new AddNewEpisodeCommand(mockAudioBook.getId(), 0, "Episode 1", null, new Date());
+        AddNewEpisodeCommand command = new AddNewEpisodeCommand(mockAudioBook.getId(), 0, "Episode 1", null, new Date(), 10L);
 
         when(audioBookRepository.findById(command.audioBookId())).thenReturn(Optional.of(mockAudioBook));
 
@@ -91,7 +91,7 @@ public class AddNewEpisodeCommandHandlerTests {
 
     @Test
     public void testHandle_duplicateTitle() {
-        AddNewEpisodeCommand command = new AddNewEpisodeCommand(mockAudioBook.getId(), 0, "Episode 1", null, new Date());
+        AddNewEpisodeCommand command = new AddNewEpisodeCommand(mockAudioBook.getId(), 0, "Episode 1", null, new Date(), 10L);
 
         when(audioBookRepository.findById(command.audioBookId())).thenReturn(Optional.of(mockAudioBook));
 

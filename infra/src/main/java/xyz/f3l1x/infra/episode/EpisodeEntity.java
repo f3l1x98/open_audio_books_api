@@ -34,6 +34,9 @@ public class EpisodeEntity {
     @JoinColumn(name = "audio_book_id", nullable = false)
     private AudioBookEntity audioBook;
 
+    @Column(nullable = false)
+    private Long duration;
+
     @CreationTimestamp
     private Timestamp createdDate;
 

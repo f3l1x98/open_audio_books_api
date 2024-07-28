@@ -65,7 +65,8 @@ public class EpisodeController {
                 body.getNumber(),
                 body.getTitle(),
                 body.getSummary(),
-                body.getReleaseDate());
+                body.getReleaseDate(),
+                body.getDuration());
 
         Episode result;
         try {

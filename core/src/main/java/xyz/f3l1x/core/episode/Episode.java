@@ -15,11 +15,16 @@ public class Episode extends BaseModel {
     private String title;
     private String summary;
     private Date releaseDate;
+    /** Duration of episode in seconds */
+    private Long duration;
 
     private AudioBook audioBook;
 
-    public static Episode create(Integer number, String title, String summary, Date releaseDate, AudioBook audioBook) {
-        return new Episode(number, title, summary, releaseDate, audioBook);
+    public static Episode create(Integer number, String title, String summary, Date releaseDate, Long duration, AudioBook audioBook) throws IllegalArgumentException {
+        if (duration <= 0) {
+            throw new IllegalArgumentException("Duration must be greater than zero");
+        }
+        return new Episode(number, title, summary, releaseDate, duration, audioBook);
     }
 
     public void update(Integer number, String title, String summary, Date releaseDate) {

@@ -25,7 +25,7 @@ public class AddNewEpisodeCommandHandler implements ICommandHandler<AddNewEpisod
         }
         AudioBook audioBook = audioBookOptional.get();
 
-        Episode newEpisode = audioBook.addNewEpisode(command.number(), command.title(), command.summary(), command.releaseDate());
+        Episode newEpisode = audioBook.addNewEpisode(command.number(), command.title(), command.summary(), command.releaseDate(), command.duration());
 
         audioBookRepository.save(audioBook);
 

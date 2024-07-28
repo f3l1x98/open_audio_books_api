@@ -47,7 +47,7 @@ public class AudioBook extends BaseModel {
         this.rating = rating;
     }
 
-    public Episode addNewEpisode(Integer number, String title, String summary, Date releaseDate) throws UniqueEpisodeViolationException {
+    public Episode addNewEpisode(Integer number, String title, String summary, Date releaseDate, Long duration) throws UniqueEpisodeViolationException {
         boolean numberAlreadyInUse = episodes.stream().anyMatch(episode -> Objects.equals(episode.getNumber(), number));
         boolean titleAlreadyInUse = episodes.stream().anyMatch(episode -> Objects.equals(episode.getTitle(), title));
 
@@ -55,7 +55,7 @@ public class AudioBook extends BaseModel {
             throw new UniqueEpisodeViolationException(numberAlreadyInUse, titleAlreadyInUse);
         }
 
-        Episode newEpisode = Episode.create(number, title, summary, releaseDate, this);
+        Episode newEpisode = Episode.create(number, title, summary, releaseDate, duration, this);
         episodes.add(newEpisode);
         return newEpisode;
     }

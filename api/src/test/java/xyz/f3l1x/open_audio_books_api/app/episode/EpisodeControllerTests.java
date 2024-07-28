@@ -53,8 +53,8 @@ public class EpisodeControllerTests {
     @Test
     public void testGetAllEpisodesForAudioBook_success() throws Exception {
         List<Episode> mockEpisodes = new ArrayList<>();
-        mockEpisodes.add(new Episode(0, "Episode 0", null, new Date(), null));
-        mockEpisodes.add(new Episode(1, "Episode 1", null, new Date(), null));
+        mockEpisodes.add(new Episode(0, "Episode 0", null, new Date(), 10L, null));
+        mockEpisodes.add(new Episode(1, "Episode 1", null, new Date(), 10L, null));
         FindAllForAudioBookEpisodeQuery expectedQuery = new FindAllForAudioBookEpisodeQuery(UUID.randomUUID());
 
         when(findAllForAudioBookEpisodeQueryHandler.handle(expectedQuery)).thenReturn(mockEpisodes);
@@ -78,7 +78,7 @@ public class EpisodeControllerTests {
     @Test
     public void testDeleteEpisode_success() throws Exception {
         UUID audioBookId = UUID.randomUUID();
-        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
 
         when(deleteEpisodeCommandHandler.handle(any(DeleteEpisodeCommand.class))).thenReturn(mockEpisode);
 
@@ -91,7 +91,7 @@ public class EpisodeControllerTests {
     @Test
     public void testDeleteEpisode_noContent() throws Exception {
         UUID audioBookId = UUID.randomUUID();
-        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
 
         when(deleteEpisodeCommandHandler.handle(any(DeleteEpisodeCommand.class))).thenThrow(new EpisodeNotFoundException(mockEpisode.getId()));
 
@@ -103,18 +103,20 @@ public class EpisodeControllerTests {
     @Test
     public void testCreateEpisode_success() throws Exception {
         UUID audioBookId = UUID.randomUUID();
-        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
         CreateEpisodeRequest request = new CreateEpisodeRequest(
                 mockEpisode.getNumber(),
                 mockEpisode.getTitle(),
                 mockEpisode.getSummary(),
-                mockEpisode.getReleaseDate());
+                mockEpisode.getReleaseDate(),
+                mockEpisode.getDuration());
         AddNewEpisodeCommand expectedCommand = new AddNewEpisodeCommand(
                 audioBookId,
                 request.getNumber(),
                 request.getTitle(),
                 request.getSummary(),
-                request.getReleaseDate());
+                request.getReleaseDate(),
+                request.getDuration());
 
         when(addNewEpisodeCommandHandler.handle(expectedCommand)).thenReturn(mockEpisode);
 
@@ -129,18 +131,20 @@ public class EpisodeControllerTests {
     @Test
     public void testCreateEpisode_audioBookNotFound() throws Exception {
         UUID audioBookId = UUID.randomUUID();
-        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
         CreateEpisodeRequest request = new CreateEpisodeRequest(
                 mockEpisode.getNumber(),
                 mockEpisode.getTitle(),
                 mockEpisode.getSummary(),
-                mockEpisode.getReleaseDate());
+                mockEpisode.getReleaseDate(),
+                mockEpisode.getDuration());
         AddNewEpisodeCommand expectedCommand = new AddNewEpisodeCommand(
                 audioBookId,
                 request.getNumber(),
                 request.getTitle(),
                 request.getSummary(),
-                request.getReleaseDate());
+                request.getReleaseDate(),
+                request.getDuration());
 
         when(addNewEpisodeCommandHandler.handle(expectedCommand)).thenThrow(new AudioBookNotFoundException(audioBookId));
 
@@ -154,18 +158,20 @@ public class EpisodeControllerTests {
     @Test
     public void testCreateEpisode_uniqueEpisodeViolationException() throws Exception {
         UUID audioBookId = UUID.randomUUID();
-        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
         CreateEpisodeRequest request = new CreateEpisodeRequest(
                 mockEpisode.getNumber(),
                 mockEpisode.getTitle(),
                 mockEpisode.getSummary(),
-                mockEpisode.getReleaseDate());
+                mockEpisode.getReleaseDate(),
+                mockEpisode.getDuration());
         AddNewEpisodeCommand expectedCommand = new AddNewEpisodeCommand(
                 audioBookId,
                 request.getNumber(),
                 request.getTitle(),
                 request.getSummary(),
-                request.getReleaseDate());
+                request.getReleaseDate(),
+                request.getDuration());
 
         when(addNewEpisodeCommandHandler.handle(expectedCommand)).thenThrow(new UniqueEpisodeViolationException(true, true));
 
@@ -179,7 +185,7 @@ public class EpisodeControllerTests {
     @Test
     public void testUpdateEpisode_success() throws Exception {
         UUID audioBookId = UUID.randomUUID();
-        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
         UpdateEpisodeRequest request = new UpdateEpisodeRequest(
                 mockEpisode.getNumber(),
                 mockEpisode.getTitle(),
@@ -205,7 +211,7 @@ public class EpisodeControllerTests {
     @Test
     public void testUpdateEpisode_notFound() throws Exception {
         UUID audioBookId = UUID.randomUUID();
-        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), null);
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
         UpdateEpisodeRequest request = new UpdateEpisodeRequest(
                 mockEpisode.getNumber(),
                 mockEpisode.getTitle(),

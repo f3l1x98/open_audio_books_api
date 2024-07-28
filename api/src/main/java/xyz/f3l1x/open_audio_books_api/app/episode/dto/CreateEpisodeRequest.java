@@ -19,4 +19,6 @@ public class CreateEpisodeRequest {
     private String summary;
     @JsonProperty()
     private Date releaseDate;
+    @JsonProperty()
+    private Long duration;
 }

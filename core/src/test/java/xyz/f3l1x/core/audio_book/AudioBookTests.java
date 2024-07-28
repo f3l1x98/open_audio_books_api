@@ -122,11 +122,11 @@ public class AudioBookTests {
                 new HashSet<>(),
                 new ArrayList<>(),
                 new ArrayList<>());
-        Episode expectedEpisode = new Episode(0, "Mock episode title", null, new Date(), audioBook);
+        Episode expectedEpisode = new Episode(0, "Mock episode title", null, new Date(), 10L, audioBook);
 
         Assertions.assertDoesNotThrow(() -> {
             int beforeEpisodesCount = audioBook.getEpisodes().size();
-            Episode result = audioBook.addNewEpisode(expectedEpisode.getNumber(), expectedEpisode.getTitle(), expectedEpisode.getSummary(), expectedEpisode.getReleaseDate());
+            Episode result = audioBook.addNewEpisode(expectedEpisode.getNumber(), expectedEpisode.getTitle(), expectedEpisode.getSummary(), expectedEpisode.getReleaseDate(), expectedEpisode.getDuration());
             int afterEpisodesCount = audioBook.getEpisodes().size();
 
             Assertions.assertEquals(result.getNumber(), expectedEpisode.getNumber());
@@ -141,7 +141,7 @@ public class AudioBookTests {
 
     @Test
     public void testAddNewEpisode_duplicateNumber() {
-        Episode episode = new Episode(0, "Mock episode 0", null, new Date(), null);
+        Episode episode = new Episode(0, "Mock episode 0", null, new Date(), 10L, null);
         AudioBook audioBook = new AudioBook(
                 "Mock title",
                 "Mock summary",
@@ -152,11 +152,11 @@ public class AudioBookTests {
                 new HashSet<>(),
                 new ArrayList<>(),
                 new ArrayList<>());
-        Episode expectedEpisode = new Episode(0, "Mock episode title", null, new Date(), audioBook);
+        Episode expectedEpisode = new Episode(0, "Mock episode title", null, new Date(), 10L, audioBook);
 
         int beforeEpisodesCount = audioBook.getEpisodes().size();
         Assertions.assertThrows(UniqueEpisodeViolationException.class, () -> {
-            audioBook.addNewEpisode(expectedEpisode.getNumber(), expectedEpisode.getTitle(), expectedEpisode.getSummary(), expectedEpisode.getReleaseDate());
+            audioBook.addNewEpisode(expectedEpisode.getNumber(), expectedEpisode.getTitle(), expectedEpisode.getSummary(), expectedEpisode.getReleaseDate(), expectedEpisode.getDuration());
         });
         int afterEpisodesCount = audioBook.getEpisodes().size();
 
@@ -165,7 +165,7 @@ public class AudioBookTests {
 
     @Test
     public void testAddNewEpisode_duplicateTitle() {
-        Episode episode = new Episode(0, "Mock episode 0", null, new Date(), null);
+        Episode episode = new Episode(0, "Mock episode 0", null, new Date(), 10L, null);
         AudioBook audioBook = new AudioBook(
                 "Mock title",
                 "Mock summary",
@@ -176,11 +176,11 @@ public class AudioBookTests {
                 new HashSet<>(),
                 new ArrayList<>(),
                 new ArrayList<>());
-        Episode expectedEpisode = new Episode(1, "Mock episode 0", null, new Date(), audioBook);
+        Episode expectedEpisode = new Episode(1, "Mock episode 0", null, new Date(), 10L, audioBook);
 
         int beforeEpisodesCount = audioBook.getEpisodes().size();
         Assertions.assertThrows(UniqueEpisodeViolationException.class, () -> {
-            audioBook.addNewEpisode(expectedEpisode.getNumber(), expectedEpisode.getTitle(), expectedEpisode.getSummary(), expectedEpisode.getReleaseDate());
+            audioBook.addNewEpisode(expectedEpisode.getNumber(), expectedEpisode.getTitle(), expectedEpisode.getSummary(), expectedEpisode.getReleaseDate(), expectedEpisode.getDuration());
         });
         int afterEpisodesCount = audioBook.getEpisodes().size();
 
