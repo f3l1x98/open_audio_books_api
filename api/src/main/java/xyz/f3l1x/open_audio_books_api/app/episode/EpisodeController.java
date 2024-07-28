@@ -1,5 +1,6 @@
 package xyz.f3l1x.open_audio_books_api.app.episode;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +60,7 @@ public class EpisodeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<EpisodeDto> createEpisode(@PathVariable UUID audioBookId, @RequestBody CreateEpisodeRequest body) {
+    public ResponseEntity<EpisodeDto> createEpisode(@PathVariable UUID audioBookId, @Valid @RequestBody CreateEpisodeRequest body) {
         AddNewEpisodeCommand command = new AddNewEpisodeCommand(
                 audioBookId,
                 body.getNumber(),

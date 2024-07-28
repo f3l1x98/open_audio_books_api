@@ -183,6 +183,60 @@ public class EpisodeControllerTests {
     }
 
     @Test
+    public void testCreateEpisode_negativeDuration() throws Exception {
+        UUID audioBookId = UUID.randomUUID();
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), -10L, null);
+        CreateEpisodeRequest request = new CreateEpisodeRequest(
+                mockEpisode.getNumber(),
+                mockEpisode.getTitle(),
+                mockEpisode.getSummary(),
+                mockEpisode.getReleaseDate(),
+                mockEpisode.getDuration());
+        AddNewEpisodeCommand expectedCommand = new AddNewEpisodeCommand(
+                audioBookId,
+                request.getNumber(),
+                request.getTitle(),
+                request.getSummary(),
+                request.getReleaseDate(),
+                request.getDuration());
+
+        when(addNewEpisodeCommandHandler.handle(expectedCommand)).thenReturn(mockEpisode);
+
+        mockMvc.perform(post("/api/v1/audio-book/" + audioBookId + "/episode")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.duration", is("Duration must be greater than zero")));
+    }
+
+    @Test
+    public void testCreateEpisode_zeroDuration() throws Exception {
+        UUID audioBookId = UUID.randomUUID();
+        Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 0L, null);
+        CreateEpisodeRequest request = new CreateEpisodeRequest(
+                mockEpisode.getNumber(),
+                mockEpisode.getTitle(),
+                mockEpisode.getSummary(),
+                mockEpisode.getReleaseDate(),
+                mockEpisode.getDuration());
+        AddNewEpisodeCommand expectedCommand = new AddNewEpisodeCommand(
+                audioBookId,
+                request.getNumber(),
+                request.getTitle(),
+                request.getSummary(),
+                request.getReleaseDate(),
+                request.getDuration());
+
+        when(addNewEpisodeCommandHandler.handle(expectedCommand)).thenReturn(mockEpisode);
+
+        mockMvc.perform(post("/api/v1/audio-book/" + audioBookId + "/episode")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.duration", is("Duration must be greater than zero")));
+    }
+
+    @Test
     public void testUpdateEpisode_success() throws Exception {
         UUID audioBookId = UUID.randomUUID();
         Episode mockEpisode = new Episode(0, "Episode 0", null, new Date(), 10L, null);
