@@ -14,6 +14,7 @@ import xyz.f3l1x.core.shared.cqrs.ICommandHandler;
 import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
 import xyz.f3l1x.open_audio_books_api.app.narrator.dto.CreateNarratorRequest;
 import xyz.f3l1x.open_audio_books_api.app.narrator.dto.NarratorDto;
+import xyz.f3l1x.open_audio_books_api.app.narrator.dto.NarratorListDto;
 import xyz.f3l1x.open_audio_books_api.app.narrator.dto.UpdateNarratorRequest;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class NarratorController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<NarratorDto>> getAllNarrators(@RequestParam("audioBookId") Optional<UUID> audioBookId) {
+    public ResponseEntity<List<NarratorListDto>> getAllNarrators(@RequestParam("audioBookId") Optional<UUID> audioBookId) {
         FindAllNarratorQuery query = new FindAllNarratorQuery(audioBookId);
 
         List<Narrator> result;
@@ -54,7 +55,7 @@ public class NarratorController {
             return ResponseEntity.internalServerError().build();
         }
 
-        return ResponseEntity.ok(this.mapper.map(result, new TypeToken<List<NarratorDto>>() {}.getType()));
+        return ResponseEntity.ok(this.mapper.map(result, new TypeToken<List<NarratorListDto>>() {}.getType()));
     }
 
     @PostMapping("")

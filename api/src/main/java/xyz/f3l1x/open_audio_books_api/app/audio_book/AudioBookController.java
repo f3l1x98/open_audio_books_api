@@ -14,6 +14,7 @@ import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQuery;
 import xyz.f3l1x.core.shared.cqrs.ICommandHandler;
 import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.AudioBookDto;
+import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.AudioBookListDto;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.CreateAudioBookRequest;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.UpdateAudioBookRequest;
 
@@ -43,8 +44,10 @@ public class AudioBookController {
         this.deleteAudioBookCommandHandler = deleteAudioBookCommandHandler;
     }
 
+
+    // TODO pagination
     @GetMapping("")
-    public ResponseEntity<List<AudioBookDto>> getAllAudioBooks() {
+    public ResponseEntity<List<AudioBookListDto>> getAllAudioBooks() {
         FindAllAudioBookQuery query = new FindAllAudioBookQuery(null, null);
 
         List<AudioBook> result;
@@ -54,7 +57,7 @@ public class AudioBookController {
             return ResponseEntity.internalServerError().build();
         }
 
-        return ResponseEntity.ok(this.mapper.map(result, new TypeToken<List<AudioBookDto>>() {}.getType()));
+        return ResponseEntity.ok(this.mapper.map(result, new TypeToken<List<AudioBookListDto>>() {}.getType()));
     }
 
     @PostMapping()

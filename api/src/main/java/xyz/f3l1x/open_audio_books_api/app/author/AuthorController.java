@@ -13,6 +13,7 @@ import xyz.f3l1x.core.author.query.find_all.FindAllAuthorQuery;
 import xyz.f3l1x.core.shared.cqrs.ICommandHandler;
 import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
 import xyz.f3l1x.open_audio_books_api.app.author.dto.AuthorDto;
+import xyz.f3l1x.open_audio_books_api.app.author.dto.AuthorListDto;
 import xyz.f3l1x.open_audio_books_api.app.author.dto.CreateAuthorRequest;
 import xyz.f3l1x.open_audio_books_api.app.author.dto.UpdateAuthorRequest;
 
@@ -44,7 +45,7 @@ public class AuthorController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<AuthorDto>> getAllAuthors(@RequestParam("audioBookId") Optional<UUID> audioBookId) {
+    public ResponseEntity<List<AuthorListDto>> getAllAuthors(@RequestParam("audioBookId") Optional<UUID> audioBookId) {
         FindAllAuthorQuery query = new FindAllAuthorQuery(audioBookId);
 
         List<Author> result;
@@ -54,7 +55,7 @@ public class AuthorController {
             return ResponseEntity.internalServerError().build();
         }
 
-        return ResponseEntity.ok(this.mapper.map(result, new TypeToken<List<AuthorDto>>() {}.getType()));
+        return ResponseEntity.ok(this.mapper.map(result, new TypeToken<List<AuthorListDto>>() {}.getType()));
     }
 
     @PostMapping("")
