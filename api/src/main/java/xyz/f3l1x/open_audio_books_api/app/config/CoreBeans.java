@@ -20,6 +20,8 @@ import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommand;
 import xyz.f3l1x.core.audio_book.command.update.UpdateAudioBookCommandHandler;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQuery;
 import xyz.f3l1x.core.audio_book.query.find_all.FindAllAudioBookQueryHandler;
+import xyz.f3l1x.core.audio_book.query.find_by_id.FindAudioBookByIdQuery;
+import xyz.f3l1x.core.audio_book.query.find_by_id.FindAudioBookByIdQueryHandler;
 import xyz.f3l1x.core.author.Author;
 import xyz.f3l1x.core.author.IAuthorRepository;
 import xyz.f3l1x.core.author.command.create.CreateAuthorCommand;
@@ -82,6 +84,11 @@ public class CoreBeans {
     @Bean
     public IQueryHandler<FindAllAudioBookQuery, List<AudioBook>> findAllAudioBookQueryHandler(IAudioBookRepository audioBookRepository) {
         return new FindAllAudioBookQueryHandler(audioBookRepository);
+    }
+
+    @Bean
+    public IQueryHandler<FindAudioBookByIdQuery, AudioBook> findAudioBookByIdQueryHandler(IAudioBookRepository audioBookRepository) {
+        return new FindAudioBookByIdQueryHandler(audioBookRepository);
     }
 
     @Bean
