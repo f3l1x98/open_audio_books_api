@@ -27,6 +27,7 @@ dependencies {
     implementation libs.spring.boot.starter
     implementation libs.spring.boot.starter.web
     implementation libs.spring.boot.starter.data.jpa
+    implementation libs.spring.content.fs.boot.starter
     implementation project(':infra')
     implementation project(':core')
     implementation libs.model.mapper
