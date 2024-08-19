@@ -34,12 +34,16 @@ import xyz.f3l1x.core.author.query.find_all.FindAllAuthorQuery;
 import xyz.f3l1x.core.author.query.find_all.FindAllAuthorQueryHandler;
 import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.episode.IEpisodeRepository;
+import xyz.f3l1x.core.episode.IEpisodeStore;
 import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommand;
 import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommandHandler;
 import xyz.f3l1x.core.episode.command.update.UpdateEpisodeCommand;
 import xyz.f3l1x.core.episode.command.update.UpdateEpisodeCommandHandler;
 import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQuery;
 import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQueryHandler;
+import xyz.f3l1x.core.episode.query.get_file.GetFileQuery;
+import xyz.f3l1x.core.episode.query.get_file.GetFileQueryHandler;
+import xyz.f3l1x.core.episode.query.get_file.GetFileQueryResult;
 import xyz.f3l1x.core.genre.Genre;
 import xyz.f3l1x.core.genre.IGenreRepository;
 import xyz.f3l1x.core.genre.command.create.CreateGenreCommand;
@@ -60,6 +64,8 @@ import xyz.f3l1x.core.narrator.query.find_all.FindAllNarratorQuery;
 import xyz.f3l1x.core.narrator.query.find_all.FindAllNarratorQueryHandler;
 import xyz.f3l1x.core.shared.cqrs.ICommandHandler;
 import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
+import xyz.f3l1x.infra.episode.EpisodeContentStore;
+import xyz.f3l1x.infra.episode.IEpisodeContentStore;
 import xyz.f3l1x.open_audio_books_api.app.audio_book.dto.AudioBookDto;
 import xyz.f3l1x.open_audio_books_api.app.mapper.BaseModelCollectionToIdCollectionConverter;
 
@@ -189,5 +195,10 @@ public class CoreBeans {
     @Bean
     public ICommandHandler<DeleteNarratorCommand, Narrator> deleteNarratorCommandHandler(INarratorRepository narratorRepository) {
         return new DeleteNarratorCommandHandler(narratorRepository);
+    }
+
+    @Bean
+    public IQueryHandler<GetFileQuery, GetFileQueryResult> getFileQueryHandler(IEpisodeRepository episodeRepository, IEpisodeStore episodeStore) {
+        return new GetFileQueryHandler(episodeRepository, episodeStore);
     }
 }
