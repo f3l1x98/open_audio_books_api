@@ -15,7 +15,6 @@ import java.util.*;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class AudioBook extends BaseModel {
     private String title;
     private String summary;
@@ -28,6 +27,8 @@ public class AudioBook extends BaseModel {
     private List<Author> authors;
     private List<Narrator> narrators;
 
+    private String directoryName;
+
     public static AudioBook create(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating, List<Genre> genres, List<Author> authors, List<Narrator> narrators) throws AuthorRequiredException, NarratorRequiredException {
         if (authors.isEmpty()) {
             throw new AuthorRequiredException();
@@ -37,6 +38,20 @@ public class AudioBook extends BaseModel {
         }
 
         return new AudioBook(title, summary, releaseDate, ongoing, rating, new ArrayList<>(), new HashSet<>(genres), authors, narrators);
+    }
+
+    public AudioBook(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating, List<Episode> episodes, Set<Genre> genres, List<Author> authors, List<Narrator> narrators) {
+        super();
+        this.title = title;
+        this.summary = summary;
+        this.releaseDate = releaseDate;
+        this.ongoing = ongoing;
+        this.rating = rating;
+        this.episodes = episodes;
+        this.genres = genres;
+        this.authors = authors;
+        this.narrators = narrators;
+        this.directoryName = this.getId().toString();
     }
 
     public void update(String title, String summary, Date releaseDate, Boolean ongoing, Integer rating) {
