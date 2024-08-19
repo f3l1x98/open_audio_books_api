@@ -7,6 +7,7 @@ import xyz.f3l1x.core.episode.exception.EpisodeNotFoundException;
 import xyz.f3l1x.core.shared.cqrs.IQueryHandler;
 
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Optional;
 
 public class GetFileQueryHandler implements IQueryHandler<GetFileQuery, GetFileQueryResult> {
@@ -25,6 +26,11 @@ public class GetFileQueryHandler implements IQueryHandler<GetFileQuery, GetFileQ
             throw new EpisodeNotFoundException(query.episodeId());
         }
 
-        return new GetFileQueryResult(episodeStore.getContent(episodeOptional.get()), episodeOptional.get().getContentLength(), episodeOptional.get().getMimeType());
+        InputStream fileStream = episodeStore.getContent(episodeOptional.get());
+        if (fileStream == null) {
+            throw new FileNotFoundException();
+        }
+
+        return new GetFileQueryResult(fileStream, episodeOptional.get().getContentLength(), episodeOptional.get().getMimeType());
     }
 }
