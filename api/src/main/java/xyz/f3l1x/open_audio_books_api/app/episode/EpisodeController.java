@@ -7,12 +7,14 @@ import org.modelmapper.TypeToken;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import xyz.f3l1x.core.audio_book.command.add_new_episode.AddNewEpisodeCommand;
 import xyz.f3l1x.core.audio_book.exception.AudioBookNotFoundException;
 import xyz.f3l1x.core.audio_book.exception.UniqueEpisodeViolationException;
 import xyz.f3l1x.core.episode.Episode;
 import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommand;
 import xyz.f3l1x.core.episode.command.update.UpdateEpisodeCommand;
+import xyz.f3l1x.core.episode.command.upload.UploadCommand;
 import xyz.f3l1x.core.episode.exception.EpisodeNotFoundException;
 import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQuery;
 import xyz.f3l1x.core.episode.query.get_file.GetFileQuery;
@@ -38,6 +40,7 @@ public class EpisodeController {
     private final ICommandHandler<UpdateEpisodeCommand, Episode> updateEpisodeCommandHandler;
     private final ICommandHandler<AddNewEpisodeCommand, Episode> addNewEpisodeCommandHandler;
     private final IQueryHandler<GetFileQuery, GetFileQueryResult> getFileQueryHandler;
+    private final ICommandHandler<UploadCommand, Episode> uploadCommandHandler;
 
     public EpisodeController(
             ModelMapper mapper,
@@ -45,7 +48,8 @@ public class EpisodeController {
             ICommandHandler<DeleteEpisodeCommand, Episode> deleteEpisodeCommandHandler,
             ICommandHandler<UpdateEpisodeCommand, Episode> updateEpisodeCommandHandler,
             ICommandHandler<AddNewEpisodeCommand, Episode> addNewEpisodeCommandHandler,
-            IQueryHandler<GetFileQuery, GetFileQueryResult> getFileQueryHandler
+            IQueryHandler<GetFileQuery, GetFileQueryResult> getFileQueryHandler,
+            ICommandHandler<UploadCommand, Episode> uploadCommandHandler
     ) {
         this.mapper = mapper;
         this.findAllForAudioBookEpisodeQueryHandler = findAllForAudioBookEpisodeQueryHandler;
@@ -53,6 +57,7 @@ public class EpisodeController {
         this.updateEpisodeCommandHandler = updateEpisodeCommandHandler;
         this.addNewEpisodeCommandHandler = addNewEpisodeCommandHandler;
         this.getFileQueryHandler = getFileQueryHandler;
+        this.uploadCommandHandler = uploadCommandHandler;
     }
 
     @GetMapping("")
@@ -130,6 +135,7 @@ public class EpisodeController {
 
     @GetMapping("/{episodeId}/stream")
     public ResponseEntity<Object> streamEpisode(@PathVariable("episodeId") UUID episodeId) {
+
         try {
             GetFileQuery query = new GetFileQuery(episodeId);
             GetFileQueryResult result = getFileQueryHandler.handle(query);
@@ -140,6 +146,21 @@ public class EpisodeController {
             headers.set(HttpHeaders.CONTENT_TYPE, result.mimeType());
             return ResponseEntity.ok().headers(headers).body(inputStreamResource);
         } catch (EpisodeNotFoundException | FileNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            log.error(Arrays.deepToString(e.getStackTrace()));
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{episodeId}/upload")
+    public ResponseEntity uploadEpisode(@PathVariable UUID episodeId, @RequestParam("file") MultipartFile file) {
+        try {
+            UploadCommand command = new UploadCommand(episodeId, file.getInputStream(), file.getContentType());
+            Episode result = uploadCommandHandler.handle(command);
+
+            return ResponseEntity.ok("Success");
+        } catch (EpisodeNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             log.error(Arrays.deepToString(e.getStackTrace()));
