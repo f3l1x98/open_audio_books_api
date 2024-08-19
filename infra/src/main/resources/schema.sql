@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS public.audio_book (
     release_date timestamp without time zone NOT NULL,
     ongoing BOOLEAN NOT NULL default true,
     rating INTEGER NOT NULL default 0,
+    directory_name VARCHAR(255) NOT NULL,
     created_date timestamp without time zone NOT NULL,
     updated_date timestamp without time zone NOT NULL
 );
@@ -19,6 +20,9 @@ CREATE TABLE IF NOT EXISTS public.episode (
     release_date timestamp without time zone NOT NULL,
     duration BIGINT NOT NULL,
     audio_book_id UUID NOT NULL,
+    content_length BIGINT NOT NULL DEFAULT 0,
+    content_mime_type VARCHAR(255) NOT NULL DEFAULT 'audio/mpeg',
+    file_name VARCHAR(255) NOT NULL,
     created_date timestamp without time zone NOT NULL,
     updated_date timestamp without time zone NOT NULL,
     CONSTRAINT uc_number_audio_book_id UNIQUE (number, audio_book_id),

@@ -71,6 +71,9 @@ public class AudioBookEntity {
     )
     private List<NarratorEntity> narrators;
 
+    @Column(nullable = false)
+    private String directoryName;
+
     @CreationTimestamp
     private Timestamp createdDate;
 

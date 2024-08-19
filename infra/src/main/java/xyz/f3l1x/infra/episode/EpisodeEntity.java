@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.content.commons.annotations.ContentId;
+import org.springframework.content.commons.annotations.ContentLength;
+import org.springframework.content.commons.annotations.MimeType;
 import xyz.f3l1x.infra.audio_book.AudioBookEntity;
 
 import java.sql.Timestamp;
@@ -42,4 +45,22 @@ public class EpisodeEntity {
 
     @UpdateTimestamp
     private Timestamp updatedDate;
+
+    // TODO UNSURE WHAT ContentId IS USED FOR (setContent does not set a contentId)
+    //  - However according to docs it is updated on setContent
+    //  - Normally it is used to get file location, HOWEVER in this case I have a custom Converter that changes this behaviour (needed for subdir by audioBook)
+    @ContentId
+    //@Column(nullable = false)
+    private UUID contentId;
+
+    @ContentLength
+    @Column(nullable = false)
+    private Long contentLength = 0L;
+
+    @MimeType
+    @Column(nullable = false)
+    private String contentMimeType = "audio/mpeg";
+
+    @Column(nullable = false)
+    private String fileName;
 }
