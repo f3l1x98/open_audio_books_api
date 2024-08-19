@@ -39,6 +39,8 @@ import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommand;
 import xyz.f3l1x.core.episode.command.delete.DeleteEpisodeCommandHandler;
 import xyz.f3l1x.core.episode.command.update.UpdateEpisodeCommand;
 import xyz.f3l1x.core.episode.command.update.UpdateEpisodeCommandHandler;
+import xyz.f3l1x.core.episode.command.upload.UploadCommand;
+import xyz.f3l1x.core.episode.command.upload.UploadCommandHandler;
 import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQuery;
 import xyz.f3l1x.core.episode.query.find_all_for_audio_book.FindAllForAudioBookEpisodeQueryHandler;
 import xyz.f3l1x.core.episode.query.get_file.GetFileQuery;
@@ -200,5 +202,10 @@ public class CoreBeans {
     @Bean
     public IQueryHandler<GetFileQuery, GetFileQueryResult> getFileQueryHandler(IEpisodeRepository episodeRepository, IEpisodeStore episodeStore) {
         return new GetFileQueryHandler(episodeRepository, episodeStore);
+    }
+
+    @Bean
+    public ICommandHandler<UploadCommand, Episode> uploadCommandHandler(IEpisodeRepository episodeRepository, IEpisodeStore episodeStore) {
+        return new UploadCommandHandler(episodeRepository, episodeStore);
     }
 }
