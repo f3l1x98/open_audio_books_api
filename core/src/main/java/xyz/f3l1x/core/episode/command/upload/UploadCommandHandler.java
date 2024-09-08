@@ -24,7 +24,7 @@ public class UploadCommandHandler implements ICommandHandler<UploadCommand, Epis
             throw new EpisodeNotFoundException(command.episodeId());
         }
 
-        final Episode ret = store.setContent(episodeOptional.get(), command.input());// new FileInputStream("G:\\felix\\Music\\TEST.mp3")
+        final Episode ret = store.setContent(episodeOptional.get(), command.input());
         ret.setMimeType(command.mimeType());
         return repository.save(ret);
     }
