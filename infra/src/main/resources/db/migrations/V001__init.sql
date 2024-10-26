@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS public.episode (
     updated_date timestamp without time zone NOT NULL,
     CONSTRAINT uc_number_audio_book_id UNIQUE (number, audio_book_id),
     CONSTRAINT uc_title_audio_book_id UNIQUE (title, audio_book_id),
-    CONSTRAINT fk_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id)
+    CONSTRAINT fk_episode_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id)
 );
 
 CREATE TABLE IF NOT EXISTS public.genre (
@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS public.rt_audio_book_genre (
     audio_book_id UUID NOT NULL,
     genre_id UUID NOT NULL,
     CONSTRAINT pk_audio_book_genre PRIMARY KEY (audio_book_id, genre_id),
-    CONSTRAINT fk_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
-    CONSTRAINT fk_genre FOREIGN KEY (genre_id) REFERENCES public.genre(id)
+    CONSTRAINT fk_audio_book_genre_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
+    CONSTRAINT fk_audio_book_genre_genre FOREIGN KEY (genre_id) REFERENCES public.genre(id)
 );
 
 CREATE TABLE IF NOT EXISTS public.author (
@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS public.rt_audio_book_author (
     audio_book_id UUID NOT NULL,
     author_id UUID NOT NULL,
     CONSTRAINT pk_audio_book_author PRIMARY KEY (audio_book_id, author_id),
-    CONSTRAINT fk_audio_book__author FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
-    CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES public.author(id)
+    CONSTRAINT fk_audio_book_author_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
+    CONSTRAINT fk_audio_book_author_author FOREIGN KEY (author_id) REFERENCES public.author(id)
 );
 
 CREATE TABLE IF NOT EXISTS public.narrator (
@@ -71,6 +71,6 @@ CREATE TABLE IF NOT EXISTS public.rt_audio_book_narrator (
     audio_book_id UUID NOT NULL,
     narrator_id UUID NOT NULL,
     CONSTRAINT pk_audio_book_narrator PRIMARY KEY (audio_book_id, narrator_id),
-    CONSTRAINT fk_audio_book__narrator FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
-    CONSTRAINT fk_narrator FOREIGN KEY (narrator_id) REFERENCES public.narrator(id)
+    CONSTRAINT fk_audio_book_narrator_audio_book FOREIGN KEY (audio_book_id) REFERENCES public.audio_book(id),
+    CONSTRAINT fk_audio_book_narrator_narrator FOREIGN KEY (narrator_id) REFERENCES public.narrator(id)
 );

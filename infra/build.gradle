@@ -36,6 +36,7 @@ dependencies {
     implementation libs.spring.content.fs.boot.starter
     implementation project(':core')
     implementation libs.model.mapper
+    implementation libs.flyway
     compileOnly libs.lombok
     annotationProcessor libs.lombok
     testImplementation platform(testLibs.junit.bom)
