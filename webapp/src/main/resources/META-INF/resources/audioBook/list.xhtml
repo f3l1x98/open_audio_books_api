@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
+    <ui:composition template="/WEB-INF/templates/page_wrapper.xhtml">
+        <ui:define name="content">
+            <p:dataView var="audioBook" value="#{audioBookListModel.audioBooks}"
+                        rows="12" paginator="true" rowsPerPageTemplate="10,20,50"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <p:dataViewListItem>
+                    <h:outputText value="#{audioBook.title}"/>
+
+                    <div class="product-list-item">
+                        <div class="product-list-detail">
+                            <div class="product-name">#{audioBook.title}</div>
+                            <div class="product-description">#{audioBook.title}</div>
+                            <p:rating readonly="true" value="#{1}"/>
+                            <i class="pi pi-tag product-category-icon"/><span
+                                class="product-category">#{audioBook.title}</span>
+                        </div>
+                        <div class="product-list-action">
+                            <h:outputText value="#{100}" styleClass="product-price">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </div>
+                    </div>
+                </p:dataViewListItem>
+            </p:dataView>
+        </ui:define>
+    </ui:composition>
+</html>

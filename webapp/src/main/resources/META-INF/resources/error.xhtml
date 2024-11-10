@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/page_wrapper.xhtml">
+    <!-- Error page does not support deferred loading by the looks of it -->
+    <ui:param name="deferred" value="false" />
+    <ui:define name="content">
+        <p:card id="errorContent">
+            <f:facet name="title">
+                Error
+            </f:facet>
+            <p>#{requestScope['errorMessage']}</p>
+
+            <!--<h:panelGroup rendered="#{not empty requestScope['errorCode']}">
+                <p><strong>Error Code:</strong> #{requestScope['errorCode']}</p>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{not empty requestScope['errorMessage']}">
+                <p><strong>Error Message:</strong> #{requestScope['errorMessage']}</p>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{not empty requestScope['errorException']}">
+                <p><strong>Exception:</strong> #{requestScope['errorException']}</p>
+            </h:panelGroup>-->
+        </p:card>
+    </ui:define>
+</ui:composition>
+</html>

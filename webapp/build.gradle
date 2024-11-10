@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.flyway)
+}
+
+group = 'xyz.f3l1x'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.spring.boot.starter
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.data.jpa
+    implementation libs.spring.content.fs.boot.starter
+    developmentOnly libs.spring.boot.devtools
+    implementation platform(webapp.joinFaces.platform)
+    //implementation webapp.joinFaces.faces.starter
+    // Primefaces-starter includes faces-starter
+    implementation webapp.joinFaces.primefaces.starter
+    implementation webapp.joinFaces.omnifaces.starter
+    implementation webapp.joinFaces.myFaces.starter
+    // Replace the default mojarra4 JSF impl with myfaces4
+    modules {
+        module("org.joinfaces:mojarra4-spring-boot-starter") {
+            replacedBy("org.joinfaces:myfaces4-spring-boot-starter", "Use MyFaces instead of Mojarra")
+        }
+    }
+    // https://mvnrepository.com/artifact/org.webjars.npm/primeflex
+    implementation group: 'org.webjars.npm', name: 'primeflex', version: '3.3.1'
+    implementation project(':infra')
+    implementation project(':core')
+    implementation libs.model.mapper
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
+    testImplementation libs.spring.boot.starter.test
+}
+
+test {
+    useJUnitPlatform()
+}

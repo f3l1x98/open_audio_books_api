@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
+<div class="w-full mb-2 shadow-2">
+    <div class="grid grid-nogutter">
+        <div class="col-fixed" style="width: 15vw">
+            <h1 class="text-4xl font-bold m-0 p-2">Open Audio Books</h1>
+        </div>
+        <div class="col align-content-center">
+            <p:linkButton outcome="/index" value="Home" styleClass="mr-2"/>
+            <p:linkButton outcome="/audioBook/list" value="AudioBooks" styleClass="mr-2"/>
+            <p:linkButton outcome="/audioBook/detail" value="Test" styleClass="mr-2"/>
+        </div>
+    </div>
+</div>
+</html>

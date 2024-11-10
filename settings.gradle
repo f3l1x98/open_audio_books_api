@@ -2,6 +2,7 @@ rootProject.name = 'open_audio_books_api'
 include 'core'
 include 'api'
 include 'infra'
+include 'webapp'
 
 dependencyResolutionManagement {
     versionCatalogs {
@@ -33,5 +34,17 @@ dependencyResolutionManagement {
             library('mockito-junit', 'org.mockito', 'mockito-junit-jupiter').versionRef(mockito)
             library('hamcrest', 'org.hamcrest', 'hamcrest').version('2.2')
         }
+        webapp {
+            // I have no idea how the versioning of JoinFaces works (ie difference between jsf-spring-boot-starter and faces-spring-boot-starter)
+            // I can only guess that it depends on whether you can use the gradle plugin (cannot use it due to only available for vers 5.2-m3)
+            // This here simply follows the guide for 5.3.4: https://docs.joinfaces.org/5.3.4/reference/
+            def joinFaces = version('joinFaces', '5.3.4') // 5.3.4 Compatible with Spring 3.3: https://github.com/joinfaces/joinfaces?tab=readme-ov-file#system-requirements
+            library('joinFaces-platform', 'org.joinfaces', 'joinfaces-platform').versionRef(joinFaces)
+            library('joinFaces-faces-starter', 'org.joinfaces', 'faces-spring-boot-starter').versionRef(joinFaces)
+            library('joinFaces-myFaces-starter', 'org.joinfaces', 'myfaces-spring-boot-starter').versionRef(joinFaces)
+            library('joinFaces-primefaces-starter', 'org.joinfaces', 'primefaces-spring-boot-starter').versionRef(joinFaces)
+            library('joinFaces-omnifaces-starter', 'org.joinfaces', 'omnifaces-spring-boot-starter').versionRef(joinFaces)
+        }
     }
 }
+

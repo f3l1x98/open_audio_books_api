@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+    <title><ui:insert name="title">OpenAudioBooks</ui:insert></title>
+</h:head>
+
+<h:body styleClass="w-screen m-0 h-screen">
+    <p:outputPanel deferred="#{empty deferred ? true : deferred}">
+        <ui:include src="/WEB-INF/templates/header.xhtml"></ui:include>
+        <ui:insert name="content"></ui:insert>
+        <ui:insert name="footer"></ui:insert>
+        <p:growl id="globalGrowl" showDetail="true" />
+    </p:outputPanel>
+</h:body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <h:head>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+    </h:head>
+
+    <h:body>
+        <p:outputPanel deferred="true">
+            <h:outputText value="#{dummy.text}" />
+
+            <div class="flex flex-column">
+                <p:link href="https://www.primefaces.org/showcase/index.xhtml?jfwid=44504" value="PrimeFaces Showcase"/>
+                <p:link href="https://primefaces.github.io/primefaces/13_0_0/#/" value="PrimeFaces Docs"/>
+                <p:link href="https://docs.joinfaces.org/5.3.4/reference/" value="JoinFaces Docs"/>
+            </div>
+
+
+            <!-- PrimeFaces test -->
+            <p:spinner />
+
+            <!-- PrimeFlex test -->
+            <div class="grid">
+                <div class="col">
+                    <div class="text-center p-3 border-round-sm bg-primary font-bold">1</div>
+                </div>
+                <div class="col">
+                    <div class="text-center p-3 border-round-sm bg-primary font-bold ">2</div>
+                </div>
+                <div class="col">
+                    <div class="text-center p-3 border-round-sm bg-primary font-bold ">3</div>
+                </div>
+            </div>
+        </p:outputPanel>
+    </h:body>
+</f:view>
+</html>
