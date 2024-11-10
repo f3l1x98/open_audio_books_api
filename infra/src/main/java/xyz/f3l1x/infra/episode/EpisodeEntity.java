@@ -50,6 +50,7 @@ public class EpisodeEntity {
     //  - However according to docs it is updated on setContent
     //  - Normally it is used to get file location, HOWEVER in this case I have a custom Converter that changes this behaviour (needed for subdir by audioBook)
     @ContentId
+    @Transient
     //@Column(nullable = false)
     private UUID contentId;
 
